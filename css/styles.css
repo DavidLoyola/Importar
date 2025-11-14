@@ -209,16 +209,17 @@ header.main-header .autor {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #0078d4;
-  color: white;
+  background-color: #81cde7;
+  color: #192a67;
   font-weight: 500;
 }
 .warning-buttons button:hover {
-  background-color: #005a9e;
+  background-color: #192a67;
+  color: #81cde7;
 }
 
 .warning-buttons button.active {
-  background-color: #f0ad4e; /* naranja para destacar */
+  background-color: #192a67; /* naranja para destacar */
   color: #fff;
   font-weight: bold;
 }

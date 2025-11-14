@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Importar CSV</title>
+<title>Validar CSV</title>
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -32,6 +32,10 @@
               <option value="05-CONGRESOS">05-CONGRESOS</option>
               <option value="06-PUBLICACIONES-UNIDADES">06-PUBLICACIONES-UNIDADES</option>
               <option value="07-PUBLICACIONES-PERSONAL">07-PUBLICACIONES-PERSONAL</option>
+              <option value="08-PROYECTOS">08-PROYECTOS</option>
+              <option value="09-PROYECTOS-UNIDAD">09-PROYECTOS-UNIDAD</option>
+              <option value="10-PROYECTOS-PERSONAL">10-PROYECTOS-PERSONAL</option>
+              <option value="15-TESISTFM-PERSONAL">15-TESISTFM-PERSONAL</option>
               <!-- resto de opciones -->
             </select>
 
@@ -147,41 +151,83 @@
     { "name": "decil_jcr", "type": "number" },
     { "name": "fecha_aceptacion", "type": "date" },
     { "name": "codigo_medio", "type": "string" }
-  ]
-},
-  "05-CONGRESOS": {
+    ]
+  },
+    "05-CONGRESOS": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "alcance", "type": "string" },
+      { "name": "ambito", "type": "string" },
+      { "name": "autores", "type": "string" },
+      { "name": "evento", "type": "string" },
+      { "name": "externa", "type": "string" },
+      { "name": "fecha_finalizacion", "type": "date" },
+      { "name": "fecha_publicacion", "type": "date" },
+      { "name": "id", "type": "number", "required": true },
+      { "name": "indexada_jcr", "type": "string" },
+      { "name": "indexada_sjr", "type": "string" },
+      { "name": "scopus_id", "type": "string" },
+      { "name": "titulo", "type": "string", "required": true },
+      { "name": "medio", "type": "string" }
+    ]
+  },
+  "06-PUBLICACIONES-UNIDADES": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "id", "type": "string", "maxLength": 50, "required": true },
+      { "name": "id_publicacion", "type": "number", "required": true  }
+    ]
+  },
+  "07-PUBLICACIONES-PERSONAL": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "id", "type": "number", "required": true },
+      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
+      { "name": "calidad", "type": "string", "maxLength": 50 }
+    ]
+  },
+  "08-PROYECTOS": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "area", "type": "string", "maxLength": 100 },
+      { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
+      { "name": "fecha_publicacion", "type": "date" },
+      { "name": "financiador", "type": "string", "maxLength": 250 },
+      { "name": "importe", "type": "number" },
+      { "name": "objetivos", "type": "string" },
+      { "name": "abreviado", "type": "string", "maxLength": 100 },
+      { "name": "titulo", "type": "string", "maxLength": 500 },
+      { "name": "stakeholder", "type": "string", "maxLength": 250 },
+      { "name": "naturaleza", "type": "string", "maxLength": 50 },
+      { "name": "importe_total_concesion", "type": "number" },
+      { "name": "fecha_finalizacion", "type": "date" }
+    ]
+  },
+   "09-PROYECTOS-UNIDAD": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "id", "type": "string", "maxLength": 50, "required": true },
+      { "name": "codigo_proyecto", "type": "string", "maxLength": 80, "required": true  }
+    ]
+  },
+  "10-PROYECTOS-PERSONAL": {
   "delimiter": "|",
   "columns": [
-    { "name": "alcance", "type": "string" },
-    { "name": "ambito", "type": "string" },
-    { "name": "autores", "type": "string" },
-    { "name": "evento", "type": "string" },
-    { "name": "externa", "type": "string" },
-    { "name": "fecha_finalizacion", "type": "date" },
-    { "name": "fecha_publicacion", "type": "date" },
-    { "name": "id", "type": "number", "required": true },
-    { "name": "indexada_jcr", "type": "string" },
-    { "name": "indexada_sjr", "type": "string" },
-    { "name": "scopus_id", "type": "string" },
-    { "name": "titulo", "type": "string", "required": true },
-    { "name": "medio", "type": "string" }
+    { "name": "codigo", "type": "string", "maxLength": 80, "required": true },
+    { "name": "calidad", "type": "string", "maxLength": 50 },
+    { "name": "comienzo", "type": "date" },
+    { "name": "dni", "type": "string", "maxLength": 10, "required": true }
   ]
 },
-"06-PUBLICACIONES-UNIDADES": {
-  "delimiter": "|",
-  "columns": [
-    { "name": "id", "type": "string", "maxLength": 50, "required": true },
-    { "name": "id_publicacion", "type": "number", "required": true  }
-  ]
-},
-"07-PUBLICACIONES-PERSONAL": {
-  "delimiter": "|",
-  "columns": [
-    { "name": "id", "type": "number", "required": true },
-    { "name": "dni", "type": "string", "maxLength": 10, "required": true },
-    { "name": "calidad", "type": "string", "maxLength": 50 }
-  ]
-}
+  "15-TESISTFM-PERSONAL": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
+      { "name": "codigo_tesis", "type": "string", "maxLength": 20, "required": true },
+      { "name": "calidad", "type": "string", "maxLength": 50 },
+    ]
+  }
+
 }
 
 document.getElementById("csvForm").addEventListener("submit", function(e) {
@@ -382,20 +428,22 @@ document.getElementById("csvForm").addEventListener("submit", function(e) {
               // Números (permitir vacío si no requerido)
               if (col.type === "number") {
                 const v = value.trim();
-                if (v === "") {
-                  if (col.required) {
-                    trWarnings.push(col.name);
-                    warnings.push({ row: i+1, col: col.name });
-                  }
-                } else {
+                if (v !== "") {
                   const normalized = v.replace(',', '.');
                   if (isNaN(Number(normalized))) {
                     rowValid = false;
                     errorMsg = `Fila ${i+1}: columna ${col.name} debe ser número.`;
                     break;
                   }
+                } else {
+                  // si está vacío y no es required, no pasa nada
+                  if (col.required) {
+                    trWarnings.push(col.name);
+                    warnings.push({ row: i+1, col: col.name });
+                  }
                 }
               }
+
 
               // Fechas (soporta dd/mm/yyyy e ISO)
               if (col.type === "date") {
@@ -464,7 +512,7 @@ document.getElementById("csvForm").addEventListener("submit", function(e) {
           currentPage = 1;
           renderTablePage();
         } else {
-          resultDiv.textContent = "❌ El CSV contiene errores. Solo se muestra la fila con error.";
+          resultDiv.textContent = "❌ El CSV contiene errores.";
           resultDiv.className = "error";
 
           body.innerHTML = "";
