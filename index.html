@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Buscador de documentos Dialnet</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+    <header class="main-header">
+        <div class="logo">
+            <img src="images/logo.svg" alt="Logo Loyola">
+        </div>
+        <div class="titulo">
+            <h1>Investigación Loyola</h1>
+            <p>Universidad Loyola</p>
+        </div>
+        <div class="autor">
+            Creado por <strong>David Cambronero Martínez</strong>
+        </div>
+    </header>
+
+    <div class="csv-form">
+        <form id="csvForm">
+            <label for="option">Selecciona tipo de archivo:</label>
+            <select id="option" name="option">
+              <option value="" disabled selected>-- Selecciona tipo de archivo --</option>
+              <option value="01-PERSONAL">01-PERSONAL</option>
+              <option value="02-PERSONAL-UNIDAD">02-PERSONAL-UNIDAD</option>
+              <option value="03-PERSONAL-CV">03-PERSONAL-CV</option>
+              <option value="04-PUBLICACIONES">04-PUBLICACIONES</option>
+              <option value="05-CONGRESOS">05-CONGRESOS</option>
+              <option value="06-PUBLICACIONES-UNIDADES">06-PUBLICACIONES-UNIDADES</option>
+              <option value="07-PUBLICACIONES-PERSONAL">07-PUBLICACIONES-PERSONAL</option>
+              <!-- resto de opciones -->
+            </select>
+
+            <br><br>
+            <label for="file">Sube tu CSV:</label>
+            <input type="file" id="file" accept=".csv">
+
+            <br><br>
+            <button type="submit">Validar</button>
+        </form>
+    </div>
+
+    <div id="result"></div>
+    <div id="filterControls"></div>
+
+    <!-- Controles de tabla -->
+    <div class="table-controls" id="tableControls" style="display:none;">
+      <label>
+        Buscar:
+        <input type="text" id="searchInput" placeholder="Filtrar filas..." />
+      </label>
+      <label>
+        Filas por página:
+        <select id="pageSize">
+          <option>10</option>
+          <option>25</option>
+          <option>50</option>
+          <option>100</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Tabla -->
+    <div id="tableContainer">
+      <table id="csvTable">
+        <thead>
+          <tr id="tableHeader"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="pagination" id="pagination" style="display:none;">
+        <button id="prevPage">&laquo; Anterior</button>
+        <button id="nextPage">Siguiente &raquo;</button>
+        <span class="info" id="pageInfo"></span>
+      </div>
+    </div>
+</div>
+
+<script>
+
+  const config = {
+  "01-PERSONAL": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "apellido1", "type": "string", "maxLength": 100, "required": true },
+      { "name": "apellido2", "type": "string", "maxLength": 100 },
+      { "name": "area", "type": "string", "maxLength": 100 },      
+      { "name": "categoria", "type": "string", "maxLength": 100 }, 
+      { "name": "departamento", "type": "string", "maxLength": 100 },
+      { "name": "email", "type": "email", "maxLength": 100 },
+      { "name": "id", "type": "number", "required": true },
+      { "name": "dni", "type": "string", "maxLength": 10 },
+      { "name": "nombre", "type": "string", "maxLength": 100, "required": true },
+      { "name": "sexo", "type": "string" } 
+    ]
+  },
+  "02-PERSONAL-UNIDAD": {
+    "delimiter": "|",
+    "columns": [
+        { "name": "codigounidad", "type": "string", "maxLength": 50, "required": true },
+        { "name": "id", "type": "number", "required": true }
+      ]
+  },
+  "03-PERSONAL-CV": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
+      { "name": "orcidid", "type": "string", "maxLength": 100 },
+      { "name": "resumen", "type": "string" }
+    ]
+  },
+  "04-PUBLICACIONES": {
+  "delimiter": "|",
+  "columns": [
+    { "name": "abstract", "type": "string" },
+    { "name": "alcance", "type": "string" },
+    { "name": "ambito", "type": "string" },
+    { "name": "autores", "type": "string" },
+    { "name": "cuartil_jcr", "type": "number" },
+    { "name": "cuartil_sjr", "type": "number" },
+    { "name": "instituto", "type": "string" },
+    { "name": "doi", "type": "string" },
+    { "name": "editorial", "type": "string" },
+    { "name": "evento", "type": "string" },
+    { "name": "externa", "type": "string" },
+    { "name": "fecha_publicacion", "type": "date" },
+    { "name": "impacto_jcr", "type": "number" },
+    { "name": "impacto_sjr", "type": "number" },
+    { "name": "id", "type": "number", "required": true },
+    { "name": "indexada_jcr", "type": "string" },
+    { "name": "indexada_sjr", "type": "string" },
+    { "name": "isi", "type": "string" },
+    { "name": "naturaleza", "type": "string" },
+    { "name": "numautores", "type": "number" },
+    { "name": "observaciones", "type": "string" },
+    { "name": "keywords", "type": "string" },
+    { "name": "pubmed_id", "type": "string" },
+    { "name": "scopus_id", "type": "string" },
+    { "name": "colaboracion", "type": "string" },
+    { "name": "titulo", "type": "string", "required": true },
+    { "name": "medio", "type": "string" },
+    { "name": "web", "type": "string" },
+    { "name": "decil_jcr", "type": "number" },
+    { "name": "fecha_aceptacion", "type": "date" },
+    { "name": "codigo_medio", "type": "string" }
+  ]
+},
+  "05-CONGRESOS": {
+  "delimiter": "|",
+  "columns": [
+    { "name": "alcance", "type": "string" },
+    { "name": "ambito", "type": "string" },
+    { "name": "autores", "type": "string" },
+    { "name": "evento", "type": "string" },
+    { "name": "externa", "type": "string" },
+    { "name": "fecha_finalizacion", "type": "date" },
+    { "name": "fecha_publicacion", "type": "date" },
+    { "name": "id", "type": "number", "required": true },
+    { "name": "indexada_jcr", "type": "string" },
+    { "name": "indexada_sjr", "type": "string" },
+    { "name": "scopus_id", "type": "string" },
+    { "name": "titulo", "type": "string", "required": true },
+    { "name": "medio", "type": "string" }
+  ]
+},
+"06-PUBLICACIONES-UNIDADES": {
+  "delimiter": "|",
+  "columns": [
+    { "name": "id", "type": "string", "maxLength": 50, "required": true },
+    { "name": "id_publicacion", "type": "number", "required": true  }
+  ]
+},
+"07-PUBLICACIONES-PERSONAL": {
+  "delimiter": "|",
+  "columns": [
+    { "name": "id", "type": "number", "required": true },
+    { "name": "dni", "type": "string", "maxLength": 10, "required": true },
+    { "name": "calidad", "type": "string", "maxLength": 50 }
+  ]
+}
+}
+
+document.getElementById("csvForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // Estado global
+  let warnings = [];
+  let allItems = [];      // [{ cells: string[], hasWarning: boolean }]
+  let filteredItems = []; // mismo formato
+  let currentPage = 1;
+
+  // Referencias UI
+  const option = document.getElementById("option").value;
+  const fileInput = document.getElementById("file");
+  const resultDiv = document.getElementById("result");
+  const headerRow = document.getElementById("tableHeader");
+  const body = document.getElementById("tableBody");
+  const tableControls = document.getElementById("tableControls");
+  const paginationEl = document.getElementById("pagination");
+  const searchInput = document.getElementById("searchInput");
+  const pageSizeSelect = document.getElementById("pageSize");
+  const prevBtn = document.getElementById("prevPage");
+  const nextBtn = document.getElementById("nextPage");
+  const pageInfo = document.getElementById("pageInfo");
+
+  // Parser CSV con comillas y multilínea
+  function parsePipeCsvWithQuotes(text, delimiter = "|", quote = '"') {
+    const rows = [];
+    let row = [];
+    let cell = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      const next = text[i + 1];
+
+      if (ch === quote) {
+        if (inQuotes && next === quote) {
+          cell += quote;
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+        continue;
+      }
+
+      if (ch === delimiter && !inQuotes) {
+        row.push(cell);
+        cell = "";
+        continue;
+      }
+
+      if ((ch === "\n" || ch === "\r") && !inQuotes) {
+        if (ch === "\r" && next === "\n") i++;
+        row.push(cell);
+        rows.push(row);
+        row = [];
+        cell = "";
+        continue;
+      }
+
+      cell += ch;
+    }
+
+    if (cell.length > 0 || row.length > 0) {
+      row.push(cell);
+      rows.push(row);
+    }
+
+    return rows;
+  }
+
+  // Render cabecera
+  function renderHeader(columns) {
+    headerRow.innerHTML = "";
+    columns.forEach(col => {
+      const th = document.createElement("th");
+      th.textContent = col.name;
+      headerRow.appendChild(th);
+    });
+  }
+
+  // Render página de tabla
+  function renderTablePage() {
+    const pageSize = parseInt(pageSizeSelect.value, 10);
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+    const pageRows = filteredItems.slice(start, end);
+
+    body.innerHTML = "";
+    for (const item of pageRows) {
+      const tr = document.createElement("tr");
+      if (item.hasWarning) tr.classList.add("warning");
+      for (const cell of item.cells) {
+        const td = document.createElement("td");
+        td.textContent = cell;
+        tr.appendChild(td);
+      }
+      body.appendChild(tr);
+    }
+
+    const totalPages = Math.max(1, Math.ceil(filteredItems.length / pageSize));
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
+    pageInfo.textContent = `Página ${currentPage} de ${totalPages} — ${filteredItems.length} filas`;
+  }
+
+  // Búsqueda
+  function applySearch() {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) {
+      filteredItems = allItems.slice();
+    } else {
+      filteredItems = allItems.filter(item =>
+        item.cells.some(cell => (cell || "").toLowerCase().includes(q))
+      );
+    }
+    currentPage = 1;
+    renderTablePage();
+  }
+
+  // Paginación
+  function setupPagination() {
+    tableControls.style.display = "flex";
+    paginationEl.style.display = "flex";
+    searchInput.value = "";
+    pageSizeSelect.value = pageSizeSelect.value || "10";
+    searchInput.oninput = applySearch;
+    pageSizeSelect.onchange = function() { currentPage = 1; renderTablePage(); };
+    prevBtn.onclick = function() { if (currentPage > 1) { currentPage--; renderTablePage(); } };
+    nextBtn.onclick = function() {
+      const pageSize = parseInt(pageSizeSelect.value, 10);
+      const totalPages = Math.max(1, Math.ceil(filteredItems.length / pageSize));
+      if (currentPage < totalPages) { currentPage++; renderTablePage(); }
+    };
+  }
+
+  // Reset UI
+  warnings = [];
+  allItems = [];
+  filteredItems = [];
+  currentPage = 1;
+  resultDiv.className = "";
+  resultDiv.textContent = "";
+  headerRow.innerHTML = "";
+  body.innerHTML = "";
+  tableControls.style.display = "none";
+  paginationEl.style.display = "none";
+
+  if (!fileInput.files.length) {
+    resultDiv.textContent = "⚠️ Por favor, selecciona un archivo CSV.";
+    resultDiv.classList.add("warning");
+    return;
+  }
+
+      const expectedConfig = config[option];
+      if (!expectedConfig) {
+        resultDiv.textContent = "❌ No hay configuración para la opción seleccionada.";
+        resultDiv.classList.add("error");
+        return;
+      }
+
+      const expectedColumns = expectedConfig.columns;
+      const delimiter = expectedConfig.delimiter || ",";
+
+      renderHeader(expectedColumns);
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const decoder = new TextDecoder("windows-1252");
+        const text = decoder.decode(event.target.result);
+
+        const rows = parsePipeCsvWithQuotes(text, delimiter, '"')
+          .map(r => r.map(c => c.trim()));
+
+        const nonEmptyRows = rows.filter(r => r.some(c => c.length > 0));
+
+        let globalValid = true;
+        let errorRow = null;
+        let errorMsg = "";
+
+        for (let i = 0; i < nonEmptyRows.length; i++) {
+          const cells = nonEmptyRows[i];
+          let rowValid = true;
+          let trWarnings = [];
+
+          // Estructura: número de columnas
+          if (cells.length !== expectedColumns.length) {
+            rowValid = false;
+            errorMsg = `Fila ${i+1}: tiene ${cells.length} columnas, se esperaban ${expectedColumns.length}.`;
+          } else {
+            // Validación por columna
+            for (let colIndex = 0; colIndex < expectedColumns.length; colIndex++) {
+              const col = expectedColumns[colIndex];
+              const value = cells[colIndex];
+
+              // Números (permitir vacío si no requerido)
+              if (col.type === "number") {
+                const v = value.trim();
+                if (v === "") {
+                  if (col.required) {
+                    trWarnings.push(col.name);
+                    warnings.push({ row: i+1, col: col.name });
+                  }
+                } else {
+                  const normalized = v.replace(',', '.');
+                  if (isNaN(Number(normalized))) {
+                    rowValid = false;
+                    errorMsg = `Fila ${i+1}: columna ${col.name} debe ser número.`;
+                    break;
+                  }
+                }
+              }
+
+              // Fechas (soporta dd/mm/yyyy e ISO)
+              if (col.type === "date") {
+                const v = value.trim();
+                if (v !== "") {
+                  const match = v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                  if (match) {
+                    const day = parseInt(match[1], 10);
+                    const month = parseInt(match[2], 10) - 1;
+                    const year = parseInt(match[3], 10);
+                    const d = new Date(year, month, day);
+                    if (d.getFullYear() !== year || d.getMonth() !== month || d.getDate() !== day) {
+                      rowValid = false;
+                      errorMsg = `Fila ${i+1}: columna ${col.name} no es fecha válida (dd/mm/yyyy).`;
+                      break;
+                    }
+                  } else if (isNaN(Date.parse(v))) {
+                    rowValid = false;
+                    errorMsg = `Fila ${i+1}: columna ${col.name} no es fecha válida.`;
+                    break;
+                  }
+                } else if (col.required) {
+                  trWarnings.push(col.name);
+                  warnings.push({ row: i+1, col: col.name });
+                }
+              }
+
+              // Email
+              if (col.type === "email" && value !== "" && !value.includes("@")) {
+                rowValid = false;
+                errorMsg = `Fila ${i+1}: columna ${col.name} no es email válido.`;
+                break;
+              }
+
+              // Longitud máxima
+              if (col.maxLength && value.length > col.maxLength) {
+                rowValid = false;
+                errorMsg = `Fila ${i+1}: columna ${col.name} supera ${col.maxLength} caracteres.`;
+                break;
+              }
+
+              // Required vacío (warning)
+              if (col.required && value === "") {
+                trWarnings.push(col.name);
+                warnings.push({ row: i+1, col: col.name });
+              }
+            }
+          }
+
+          if (!rowValid) {
+            globalValid = false;
+            errorRow = cells.slice();
+            break;
+          } else {
+            allItems.push({ cells, hasWarning: trWarnings.length > 0 });
+          }
+        }
+
+        // Pinta resultado y tabla
+        if (globalValid) {
+          resultDiv.textContent = "✅ CSV válido para la opción " + option;
+          resultDiv.className = "success";
+
+          setupPagination();
+          filteredItems = allItems.slice();
+          currentPage = 1;
+          renderTablePage();
+        } else {
+          resultDiv.textContent = "❌ El CSV contiene errores. Solo se muestra la fila con error.";
+          resultDiv.className = "error";
+
+          body.innerHTML = "";
+          const tr = document.createElement("tr");
+          tr.classList.add("error");
+          for (const cell of errorRow) {
+            const td = document.createElement("td");
+            td.textContent = cell;
+            tr.appendChild(td);
+          }
+          body.appendChild(tr);
+
+          const msgRow = document.createElement("tr");
+          const td = document.createElement("td");
+          td.colSpan = expectedColumns.length;
+          td.innerHTML = `<span class="error-msg">${errorMsg}</span>`;
+          msgRow.appendChild(td);
+          body.appendChild(msgRow);
+
+          tableControls.style.display = "none";
+          paginationEl.style.display = "none";
+        }
+
+          // Mostrar contador de warnings SIEMPRE (válido o con error)
+
+      if (warnings.length > 0) {
+        const msg = document.createElement("div");
+        msg.className = "warning-msg";
+        msg.textContent = `⚠️ Se han detectado ${warnings.length} warnings en campos obligatorios vacíos.`;
+
+        // contenedor para los botones
+        const btnContainer = document.createElement("div");
+        btnContainer.className = "warning-buttons";
+
+        const showWarningsBtn = document.createElement("button");
+          showWarningsBtn.textContent = "Ver solo warnings";
+
+          const showAllBtn = document.createElement("button");
+          showAllBtn.textContent = "Ver todo";
+
+          // lógica de selección
+          showWarningsBtn.onclick = function() {
+            filteredItems = allItems.filter(item => item.hasWarning);
+            currentPage = 1;
+            renderTablePage();
+
+            // marcar este botón y desmarcar el otro
+            showWarningsBtn.classList.add("active");
+            showAllBtn.classList.remove("active");
+          };
+
+          showAllBtn.onclick = function() {
+            filteredItems = allItems.slice();
+            currentPage = 1;
+            renderTablePage();
+
+            // marcar este botón y desmarcar el otro
+            showAllBtn.classList.add("active");
+            showWarningsBtn.classList.remove("active");
+          };
+
+          btnContainer.appendChild(showWarningsBtn);
+          btnContainer.appendChild(showAllBtn);
+
+          // añadimos los botones dentro del mensaje
+          msg.appendChild(btnContainer);
+          resultDiv.appendChild(msg);
+        }
+
+      };
+
+      reader.readAsArrayBuffer(file);
+    })
+    
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
