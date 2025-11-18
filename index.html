@@ -35,7 +35,12 @@
               <option value="08-PROYECTOS">08-PROYECTOS</option>
               <option value="09-PROYECTOS-UNIDAD">09-PROYECTOS-UNIDAD</option>
               <option value="10-PROYECTOS-PERSONAL">10-PROYECTOS-PERSONAL</option>
+              <option value="11-UNIDADES">11-UNIDADES</option>
+              <option value="12-LINEAS-UNIDADES">12-LINEAS-UNIDADES</option>
+              <option value="13-LINEAS-PERSONAL">13-LINEAS-PERSONAL</option>
+              <option value="14-TESIS-TFM">14-TESIS-TFM</option>
               <option value="15-TESISTFM-PERSONAL">15-TESISTFM-PERSONAL</option>
+              <option value="16-OBRAS-ARTISTICAS">16-OBRAS-ARTISTICAS</option>
               <!-- resto de opciones -->
             </select>
 
@@ -219,6 +224,64 @@
     { "name": "dni", "type": "string", "maxLength": 10, "required": true }
   ]
 },
+"11-UNIDADES": {
+  "delimiter": "|",
+  "columns": [
+    { "name": "tipo", "type": "string", "maxLength": 20, "required": true },
+    { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
+    { "name": "nombre", "type": "string", "maxLength": 100, "required": true },
+    { "name": "responsable", "type": "string", "maxLength": 255 },
+    { "name": "objetivos", "type": "string" }
+  ]
+},
+"12-LINEAS-UNIDADES": {
+  "delimiter": "|",
+  "columns": [
+    { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
+    { "name": "codigolinea", "type": "string", "maxLength": 20, "required": true },
+    { "name": "linea", "type": "string", "maxLength": 250, "required": true },
+    { "name": "descripcion", "type": "string" }
+  ]
+
+},
+"13-LINEAS-PERSONAL": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "codigolinea", "type": "string", "maxLength": 20, "required": true },
+      { "name": "id", "type": "number", "maxLength": 11,"required": true  },
+      { "name": "responsable", "type": "string", "maxLength": 5 },
+    ]
+  },
+  "14-TESIS-TFM": {
+  "delimiter": "|",
+  "columns": [
+    { "name": "autores", "type": "string", "maxLength": 255 },
+    { "name": "calificacion", "type": "string", "maxLength": 100 },
+    { "name": "cita_bibliografica", "type": "string" },
+    { "name": "ciudad_lectura", "type": "string", "maxLength": 100 },
+    { "name": "codigo", "type": "string", "maxLength": 20, "required": true },
+    { "name": "descartada", "type": "string", "maxLength": 2 },
+    { "name": "doctorado_europeo","type": "string", "maxLength": 2 },
+    { "name": "entidad_financiadora", "type": "string", "maxLength": 100 },
+    { "name": "estado", "type": "string", "maxLength": 100 },
+    { "name": "externa", "type": "string", "maxLength": 2 },
+    { "name": "fecha_inicio", "type": "date" },
+    { "name": "fecha_lectura", "type": "date" },
+    { "name": "fecha_mencion", "type": "date" },
+    { "name": "fecha_recepcion", "type": "date" },
+    { "name": "mencion_calidad", "type": "string", "maxLength": 2 },
+    { "name": "nota", "type": "string" },
+    { "name": "observaciones", "type": "string" },
+    { "name": "pais", "type": "string", "maxLength": 100 },
+    { "name": "programa_academico", "type": "string", "maxLength": 255 },
+    { "name": "remite", "type": "string", "maxLength": 255 },
+    { "name": "tipo", "type": "string"},
+    { "name": "titulo", "type": "string", "maxLength": 500 },
+    { "name": "universidad", "type": "string", "maxLength": 200 },
+    { "name": "usuario_reserva", "type": "string", "maxLength": 100 },
+    { "name": "web", "type": "string", "maxLength": 200 }
+  ]
+},
   "15-TESISTFM-PERSONAL": {
     "delimiter": "|",
     "columns": [
@@ -226,7 +289,55 @@
       { "name": "codigo_tesis", "type": "string", "maxLength": 20, "required": true },
       { "name": "calidad", "type": "string", "maxLength": 50 },
     ]
-  }
+  },
+  "16-OBRAS-ARTISTICAS": {
+  "delimiter": "|",
+  "columns": [
+    { "name": "nombre_completo", "type": "string", "maxLength": 200 },
+    { "name": "ambito", "type": "string", "maxLength": 50 },
+    { "name": "area", "type": "string", "maxLength": 100 },
+    { "name": "area_actuacion", "type": "string", "maxLength": 100 },
+    { "name": "campania", "type": "string", "maxLength": 200 },
+    { "name": "cita_bibliografica", "type": "string", "maxLength": 500 },
+    { "name": "comercializacion", "type": "string", "maxLength": 2 },
+    { "name": "convenios_colaboracion", "type": "string", "maxLength": 2 },
+    { "name": "destacado", "type": "string", "maxLength": 2 },
+    { "name": "descripcion_origen", "type": "string", "maxLength": 255 },
+    { "name": "difundido", "type": "string", "maxLength": 2 },
+    { "name": "empresas", "type": "string", "maxLength": 2 },
+    { "name": "especialidad", "type": "string", "maxLength": 255 },
+    { "name": "especializacion_1", "type": "string", "maxLength": 255 },
+    { "name": "especializacion_2", "type": "string", "maxLength": 255 },
+    { "name": "especializacion_3", "type": "string", "maxLength": 255 },
+    { "name": "estado", "type": "string", "maxLength": 50 },
+    { "name": "externo", "type": "string", "maxLength": 2 },
+    { "name": "fecha_registro", "type": "date" },
+    { "name": "genera_proteccion", "type": "string", "maxLength": 2 },
+    { "name": "genera_spinoff", "type": "string", "maxLength": 2 },
+    { "name": "gran_area", "type": "string", "maxLength": 255 },
+    { "name": "grupo_innovacion", "type": "string", "maxLength": 255 },
+    { "name": "id_resultado", "type": "number" },
+    { "name": "idea", "type": "string", "maxLength": 255 },
+    { "name": "naturaleza", "type": "string", "maxLength": 100 },
+    { "name": "expediente", "type": "string", "maxLength": 15 },
+    { "name": "nuevas_tecnicas", "type": "string", "maxLength": 2 },
+    { "name": "pendiente_validar", "type": "string", "maxLength": 2 },
+    { "name": "propiedad", "type": "string", "maxLength": 50 },
+    { "name": "protegible", "type": "string", "maxLength": 2 },
+    { "name": "servicios", "type": "string", "maxLength": 2 },
+    { "name": "remite", "type": "string", "maxLength": 255 },
+    { "name": "resultados", "type": "string", "maxLength": 2 },
+    { "name": "resumen", "type": "string" },
+    { "name": "tipo", "type": "string", "maxLength": 255 },
+    { "name": "tipo_protecciones", "type": "string", "maxLength": 100 },
+    { "name": "tipo_origen", "type": "string", "maxLength": 100 },
+    { "name": "titulo", "type": "string", "maxLength": 500 },
+    { "name": "abreviado", "type": "string", "maxLength": 255 },
+    { "name": "utilizado", "type": "string", "maxLength": 2 },
+    { "name": "visible_web", "type": "string", "maxLength": 2 }
+  ]
+}
+
 
 }
 
