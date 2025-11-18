@@ -86,6 +86,28 @@ header.main-header .autor {
     text-align: right;
 }
 
+
+/* 🔸 Responsive: apilar en pantallas pequeñas */
+@media (max-width: 600px) {
+  header.main-header {
+    grid-template-areas:
+      "logo"
+      "titulo"
+      "autor";
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  header.main-header .autor {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  header.main-header .logo img {
+    margin: 0 auto;
+  }
+}
+
 .csv-form {
     grid-area: form;
     margin-top: 20px;
@@ -150,6 +172,7 @@ header.main-header .autor {
   margin-top: 20px;
   width: 100%;
   overflow-x: auto;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
 }
 #csvTable {
   width: 100%;
@@ -170,13 +193,18 @@ header.main-header .autor {
   border-bottom: 1px solid #ddd;
 }
 
-#csvTable tr:nth-child(even) {
-  background-color: #f9f9f9;   /* alterna filas */
+td, th {
+  border-right: 1px solid rgba(0,0,0,0.08);
+}
+td:last-child, th:last-child {
+  border-right: none;
 }
 
-#csvTable tr:hover {
-  background-color: #e6f2ff;   /* efecto hover */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
+
+
 
 /* Mensajes de error */
 .error-msg {
@@ -224,3 +252,56 @@ header.main-header .autor {
   font-weight: bold;
 }
 
+
+
+/* Select con estilo */
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  .form-group {
+    margin-bottom: 25px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  select#option, input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  select:focus, input[type="file"]:focus {
+    outline: none;
+    border-color: #0078d7;
+    box-shadow: 0 0 5px rgba(0,120,215,0.3);
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #0078d7;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #005a9e;
+  }

@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Validar CSV</title>
 <link rel="stylesheet" href="css/styles.css">
+<!-- CSS de Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- JS de Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 </head>
 <body>
 <div class="container">
@@ -48,12 +55,13 @@
               <option value="21-PROYECTOS-EXTERNO">21-PROYECTOS-EXTERNO</option>
             </select>
 
+
             <br><br>
             <label for="file">Sube tu CSV:</label>
             <input type="file" id="file" accept=".csv">
 
             <br><br>
-            <button type="submit">Validar</button>
+            <button id="validarbutton" type="submit">Validar</button>
         </form>
     </div>
 
@@ -776,6 +784,16 @@ document.getElementById("csvForm").addEventListener("submit", function(e) {
 </script>
 
 
+<script>
+  $(document).ready(function() {
+    $('#option').select2({
+      placeholder: "-- Selecciona tipo de archivo --",
+      allowClear: true,
+      width: '100%',
+      theme: 'classic' // puedes probar 'default', 'classic' o personalizar
+    });
+  });
+</script>
 
 
 
