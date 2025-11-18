@@ -41,7 +41,11 @@
               <option value="14-TESIS-TFM">14-TESIS-TFM</option>
               <option value="15-TESISTFM-PERSONAL">15-TESISTFM-PERSONAL</option>
               <option value="16-OBRAS-ARTISTICAS">16-OBRAS-ARTISTICAS</option>
-              <!-- resto de opciones -->
+              <option value="17-OA-PERSONAL">17-OA-PERSONAL</option>
+              <option value="18-EREVISTAS">18-EREVISTAS</option>
+              <option value="19-PAIS-EXTERNOS">19-PAIS-EXTERNOS</option>
+              <option value="20-TDOC">20-TDOC</option>
+              <option value="21-PROYECTOS-EXTERNO">21-PROYECTOS-EXTERNO</option>
             </select>
 
             <br><br>
@@ -123,42 +127,42 @@
     ]
   },
   "04-PUBLICACIONES": {
-  "delimiter": "|",
-  "columns": [
-    { "name": "abstract", "type": "string" },
-    { "name": "alcance", "type": "string" },
-    { "name": "ambito", "type": "string" },
-    { "name": "autores", "type": "string" },
-    { "name": "cuartil_jcr", "type": "number" },
-    { "name": "cuartil_sjr", "type": "number" },
-    { "name": "instituto", "type": "string" },
-    { "name": "doi", "type": "string" },
-    { "name": "editorial", "type": "string" },
-    { "name": "evento", "type": "string" },
-    { "name": "externa", "type": "string" },
-    { "name": "fecha_publicacion", "type": "date" },
-    { "name": "impacto_jcr", "type": "number" },
-    { "name": "impacto_sjr", "type": "number" },
-    { "name": "id", "type": "number", "required": true },
-    { "name": "indexada_jcr", "type": "string" },
-    { "name": "indexada_sjr", "type": "string" },
-    { "name": "isi", "type": "string" },
-    { "name": "naturaleza", "type": "string" },
-    { "name": "numautores", "type": "number" },
-    { "name": "observaciones", "type": "string" },
-    { "name": "keywords", "type": "string" },
-    { "name": "pubmed_id", "type": "string" },
-    { "name": "scopus_id", "type": "string" },
-    { "name": "colaboracion", "type": "string" },
-    { "name": "titulo", "type": "string", "required": true },
-    { "name": "medio", "type": "string" },
-    { "name": "web", "type": "string" },
-    { "name": "decil_jcr", "type": "number" },
-    { "name": "fecha_aceptacion", "type": "date" },
-    { "name": "codigo_medio", "type": "string" }
-    ]
-  },
-    "05-CONGRESOS": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "abstract", "type": "string" },
+      { "name": "alcance", "type": "string" },
+      { "name": "ambito", "type": "string" },
+      { "name": "autores", "type": "string" },
+      { "name": "cuartil_jcr", "type": "number" },
+      { "name": "cuartil_sjr", "type": "number" },
+      { "name": "instituto", "type": "string" },
+      { "name": "doi", "type": "string" },
+      { "name": "editorial", "type": "string" },
+      { "name": "evento", "type": "string" },
+      { "name": "externa", "type": "string" },
+      { "name": "fecha_publicacion", "type": "date" },
+      { "name": "impacto_jcr", "type": "number" },
+      { "name": "impacto_sjr", "type": "number" },
+      { "name": "id", "type": "number", "required": true },
+      { "name": "indexada_jcr", "type": "string" },
+      { "name": "indexada_sjr", "type": "string" },
+      { "name": "isi", "type": "string" },
+      { "name": "naturaleza", "type": "string" },
+      { "name": "numautores", "type": "number" },
+      { "name": "observaciones", "type": "string" },
+      { "name": "keywords", "type": "string" },
+      { "name": "pubmed_id", "type": "string" },
+      { "name": "scopus_id", "type": "string" },
+      { "name": "colaboracion", "type": "string" },
+      { "name": "titulo", "type": "string", "required": true },
+      { "name": "medio", "type": "string" },
+      { "name": "web", "type": "string" },
+      { "name": "decil_jcr", "type": "number" },
+      { "name": "fecha_aceptacion", "type": "date" },
+      { "name": "codigo_medio", "type": "string" }
+      ]
+    },
+  "05-CONGRESOS": {
     "delimiter": "|",
     "columns": [
       { "name": "alcance", "type": "string" },
@@ -208,7 +212,7 @@
       { "name": "fecha_finalizacion", "type": "date" }
     ]
   },
-   "09-PROYECTOS-UNIDAD": {
+  "09-PROYECTOS-UNIDAD": {
     "delimiter": "|",
     "columns": [
       { "name": "id", "type": "string", "maxLength": 50, "required": true },
@@ -216,35 +220,34 @@
     ]
   },
   "10-PROYECTOS-PERSONAL": {
-  "delimiter": "|",
-  "columns": [
-    { "name": "codigo", "type": "string", "maxLength": 80, "required": true },
-    { "name": "calidad", "type": "string", "maxLength": 50 },
-    { "name": "comienzo", "type": "date" },
-    { "name": "dni", "type": "string", "maxLength": 10, "required": true }
-  ]
-},
-"11-UNIDADES": {
-  "delimiter": "|",
-  "columns": [
-    { "name": "tipo", "type": "string", "maxLength": 20, "required": true },
-    { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
-    { "name": "nombre", "type": "string", "maxLength": 100, "required": true },
-    { "name": "responsable", "type": "string", "maxLength": 255 },
-    { "name": "objetivos", "type": "string" }
-  ]
-},
-"12-LINEAS-UNIDADES": {
-  "delimiter": "|",
-  "columns": [
-    { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
-    { "name": "codigolinea", "type": "string", "maxLength": 20, "required": true },
-    { "name": "linea", "type": "string", "maxLength": 250, "required": true },
-    { "name": "descripcion", "type": "string" }
-  ]
-
-},
-"13-LINEAS-PERSONAL": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "codigo", "type": "string", "maxLength": 80, "required": true },
+      { "name": "calidad", "type": "string", "maxLength": 50 },
+      { "name": "comienzo", "type": "date" },
+      { "name": "dni", "type": "string", "maxLength": 10, "required": true }
+    ]
+  },
+  "11-UNIDADES": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "tipo", "type": "string", "maxLength": 20, "required": true },
+      { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
+      { "name": "nombre", "type": "string", "maxLength": 100, "required": true },
+      { "name": "responsable", "type": "string", "maxLength": 255 },
+      { "name": "objetivos", "type": "string" }
+    ]
+  },
+  "12-LINEAS-UNIDADES": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
+      { "name": "codigolinea", "type": "string", "maxLength": 20, "required": true },
+      { "name": "linea", "type": "string", "maxLength": 250, "required": true },
+      { "name": "descripcion", "type": "string" }
+    ]
+  },
+  "13-LINEAS-PERSONAL": {
     "delimiter": "|",
     "columns": [
       { "name": "codigolinea", "type": "string", "maxLength": 20, "required": true },
@@ -253,35 +256,35 @@
     ]
   },
   "14-TESIS-TFM": {
-  "delimiter": "|",
-  "columns": [
-    { "name": "autores", "type": "string", "maxLength": 255 },
-    { "name": "calificacion", "type": "string", "maxLength": 100 },
-    { "name": "cita_bibliografica", "type": "string" },
-    { "name": "ciudad_lectura", "type": "string", "maxLength": 100 },
-    { "name": "codigo", "type": "string", "maxLength": 20, "required": true },
-    { "name": "descartada", "type": "string", "maxLength": 2 },
-    { "name": "doctorado_europeo","type": "string", "maxLength": 2 },
-    { "name": "entidad_financiadora", "type": "string", "maxLength": 100 },
-    { "name": "estado", "type": "string", "maxLength": 100 },
-    { "name": "externa", "type": "string", "maxLength": 2 },
-    { "name": "fecha_inicio", "type": "date" },
-    { "name": "fecha_lectura", "type": "date" },
-    { "name": "fecha_mencion", "type": "date" },
-    { "name": "fecha_recepcion", "type": "date" },
-    { "name": "mencion_calidad", "type": "string", "maxLength": 2 },
-    { "name": "nota", "type": "string" },
-    { "name": "observaciones", "type": "string" },
-    { "name": "pais", "type": "string", "maxLength": 100 },
-    { "name": "programa_academico", "type": "string", "maxLength": 255 },
-    { "name": "remite", "type": "string", "maxLength": 255 },
-    { "name": "tipo", "type": "string"},
-    { "name": "titulo", "type": "string", "maxLength": 500 },
-    { "name": "universidad", "type": "string", "maxLength": 200 },
-    { "name": "usuario_reserva", "type": "string", "maxLength": 100 },
-    { "name": "web", "type": "string", "maxLength": 200 }
-  ]
-},
+    "delimiter": "|",
+    "columns": [
+      { "name": "autores", "type": "string", "maxLength": 255 },
+      { "name": "calificacion", "type": "string", "maxLength": 100 },
+      { "name": "cita_bibliografica", "type": "string" },
+      { "name": "ciudad_lectura", "type": "string", "maxLength": 100 },
+      { "name": "codigo", "type": "string", "maxLength": 20, "required": true },
+      { "name": "descartada", "type": "string", "maxLength": 2 },
+      { "name": "doctorado_europeo","type": "string", "maxLength": 2 },
+      { "name": "entidad_financiadora", "type": "string", "maxLength": 100 },
+      { "name": "estado", "type": "string", "maxLength": 100 },
+      { "name": "externa", "type": "string", "maxLength": 2 },
+      { "name": "fecha_inicio", "type": "date" },
+      { "name": "fecha_lectura", "type": "date" },
+      { "name": "fecha_mencion", "type": "date" },
+      { "name": "fecha_recepcion", "type": "date" },
+      { "name": "mencion_calidad", "type": "string", "maxLength": 2 },
+      { "name": "nota", "type": "string" },
+      { "name": "observaciones", "type": "string" },
+      { "name": "pais", "type": "string", "maxLength": 100 },
+      { "name": "programa_academico", "type": "string", "maxLength": 255 },
+      { "name": "remite", "type": "string", "maxLength": 255 },
+      { "name": "tipo", "type": "string"},
+      { "name": "titulo", "type": "string", "maxLength": 500 },
+      { "name": "universidad", "type": "string", "maxLength": 200 },
+      { "name": "usuario_reserva", "type": "string", "maxLength": 100 },
+      { "name": "web", "type": "string", "maxLength": 200 }
+    ]
+  },
   "15-TESISTFM-PERSONAL": {
     "delimiter": "|",
     "columns": [
@@ -291,52 +294,120 @@
     ]
   },
   "16-OBRAS-ARTISTICAS": {
-  "delimiter": "|",
-  "columns": [
-    { "name": "nombre_completo", "type": "string", "maxLength": 200 },
-    { "name": "ambito", "type": "string", "maxLength": 50 },
-    { "name": "area", "type": "string", "maxLength": 100 },
-    { "name": "area_actuacion", "type": "string", "maxLength": 100 },
-    { "name": "campania", "type": "string", "maxLength": 200 },
-    { "name": "cita_bibliografica", "type": "string", "maxLength": 500 },
-    { "name": "comercializacion", "type": "string", "maxLength": 2 },
-    { "name": "convenios_colaboracion", "type": "string", "maxLength": 2 },
-    { "name": "destacado", "type": "string", "maxLength": 2 },
-    { "name": "descripcion_origen", "type": "string", "maxLength": 255 },
-    { "name": "difundido", "type": "string", "maxLength": 2 },
-    { "name": "empresas", "type": "string", "maxLength": 2 },
-    { "name": "especialidad", "type": "string", "maxLength": 255 },
-    { "name": "especializacion_1", "type": "string", "maxLength": 255 },
-    { "name": "especializacion_2", "type": "string", "maxLength": 255 },
-    { "name": "especializacion_3", "type": "string", "maxLength": 255 },
-    { "name": "estado", "type": "string", "maxLength": 50 },
-    { "name": "externo", "type": "string", "maxLength": 2 },
-    { "name": "fecha_registro", "type": "date" },
-    { "name": "genera_proteccion", "type": "string", "maxLength": 2 },
-    { "name": "genera_spinoff", "type": "string", "maxLength": 2 },
-    { "name": "gran_area", "type": "string", "maxLength": 255 },
-    { "name": "grupo_innovacion", "type": "string", "maxLength": 255 },
-    { "name": "id_resultado", "type": "number" },
-    { "name": "idea", "type": "string", "maxLength": 255 },
-    { "name": "naturaleza", "type": "string", "maxLength": 100 },
-    { "name": "expediente", "type": "string", "maxLength": 15 },
-    { "name": "nuevas_tecnicas", "type": "string", "maxLength": 2 },
-    { "name": "pendiente_validar", "type": "string", "maxLength": 2 },
-    { "name": "propiedad", "type": "string", "maxLength": 50 },
-    { "name": "protegible", "type": "string", "maxLength": 2 },
-    { "name": "servicios", "type": "string", "maxLength": 2 },
-    { "name": "remite", "type": "string", "maxLength": 255 },
-    { "name": "resultados", "type": "string", "maxLength": 2 },
-    { "name": "resumen", "type": "string" },
-    { "name": "tipo", "type": "string", "maxLength": 255 },
-    { "name": "tipo_protecciones", "type": "string", "maxLength": 100 },
-    { "name": "tipo_origen", "type": "string", "maxLength": 100 },
-    { "name": "titulo", "type": "string", "maxLength": 500 },
-    { "name": "abreviado", "type": "string", "maxLength": 255 },
-    { "name": "utilizado", "type": "string", "maxLength": 2 },
-    { "name": "visible_web", "type": "string", "maxLength": 2 }
-  ]
-}
+    "delimiter": "|",
+    "columns": [
+      { "name": "nombre_completo", "type": "string", "maxLength": 200 },
+      { "name": "ambito", "type": "string", "maxLength": 50 },
+      { "name": "area", "type": "string", "maxLength": 100 },
+      { "name": "area_actuacion", "type": "string", "maxLength": 100 },
+      { "name": "campania", "type": "string", "maxLength": 200 },
+      { "name": "cita_bibliografica", "type": "string", "maxLength": 500 },
+      { "name": "comercializacion", "type": "string", "maxLength": 2 },
+      { "name": "convenios_colaboracion", "type": "string", "maxLength": 2 },
+      { "name": "destacado", "type": "string", "maxLength": 2 },
+      { "name": "descripcion_origen", "type": "string", "maxLength": 255 },
+      { "name": "difundido", "type": "string", "maxLength": 2 },
+      { "name": "empresas", "type": "string", "maxLength": 2 },
+      { "name": "especialidad", "type": "string", "maxLength": 255 },
+      { "name": "especializacion_1", "type": "string", "maxLength": 255 },
+      { "name": "especializacion_2", "type": "string", "maxLength": 255 },
+      { "name": "especializacion_3", "type": "string", "maxLength": 255 },
+      { "name": "estado", "type": "string", "maxLength": 50 },
+      { "name": "externo", "type": "string", "maxLength": 2 },
+      { "name": "fecha_registro", "type": "date" },
+      { "name": "genera_proteccion", "type": "string", "maxLength": 2 },
+      { "name": "genera_spinoff", "type": "string", "maxLength": 2 },
+      { "name": "gran_area", "type": "string", "maxLength": 255 },
+      { "name": "grupo_innovacion", "type": "string", "maxLength": 255 },
+      { "name": "id_resultado", "type": "number" },
+      { "name": "idea", "type": "string", "maxLength": 255 },
+      { "name": "naturaleza", "type": "string", "maxLength": 100 },
+      { "name": "expediente", "type": "string", "maxLength": 15 },
+      { "name": "nuevas_tecnicas", "type": "string", "maxLength": 2 },
+      { "name": "pendiente_validar", "type": "string", "maxLength": 2 },
+      { "name": "propiedad", "type": "string", "maxLength": 50 },
+      { "name": "protegible", "type": "string", "maxLength": 2 },
+      { "name": "servicios", "type": "string", "maxLength": 2 },
+      { "name": "remite", "type": "string", "maxLength": 255 },
+      { "name": "resultados", "type": "string", "maxLength": 2 },
+      { "name": "resumen", "type": "string" },
+      { "name": "tipo", "type": "string", "maxLength": 255 },
+      { "name": "tipo_protecciones", "type": "string", "maxLength": 100 },
+      { "name": "tipo_origen", "type": "string", "maxLength": 100 },
+      { "name": "titulo", "type": "string", "maxLength": 500 },
+      { "name": "abreviado", "type": "string", "maxLength": 255 },
+      { "name": "utilizado", "type": "string", "maxLength": 2 },
+      { "name": "visible_web", "type": "string", "maxLength": 2 }
+    ]
+  },
+  "17-OA-PERSONAL": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
+      { "name": "expediente", "type": "string", "maxLength": 15, "required": true },
+    ]
+  },
+  "18-EREVISTAS": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
+      { "name": "nombre_completo", "type": "string", "maxLength": 200, "required": true },
+      { "name": "ambito_consejo", "type": "string", "maxLength": 50 },
+      { "name": "cargo", "type": "string", "maxLength": 100 },
+      { "name": "ciudad", "type": "string", "maxLength": 100 },
+      { "name": "ciudad_radicacion", "type": "string", "maxLength": 100 },
+      { "name": "entidad_depende", "type": "string", "maxLength": 255 },
+      { "name": "fecha_fin", "type": "date" },
+      { "name": "fecha_inicio", "type": "date" },
+      { "name": "nombre_consejo", "type": "string" },
+      { "name": "observacion", "type": "string"},
+      { "name": "pais", "type": "string", "maxLength": 100 },
+      { "name": "pais_radicacion", "type": "string", "maxLength": 50 },
+      { "name": "web", "type": "string", "maxLength": 255 },
+      { "name": "tareas_desarrolladas", "type": "string" },
+      { "name": "tipo_entidad", "type": "string", "maxLength": 100 }
+    ]
+  },
+  "19-PAIS-EXTERNOS": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "id_publicacion", "type": "number", "maxLength": 11, "required": true },
+      { "name": "pais", "type": "string", "maxLength": 200 }
+    ]
+  },
+  "20-TDOC": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
+      { "name": "expediente", "type": "string", "maxLength": 15, "required": true },
+    ]
+  },
+  "21-PROYECTOS-EXTERNO": {
+    "delimiter": "|",
+    "columns": [
+      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
+      { "name": "ambito", "type": "string", "maxLength": 50 },
+      { "name": "codigo", "type": "string", "maxLength": 80, "required": true },
+      { "name": "competitivo", "type": "string", "maxLength": 2 },
+      { "name": "cuantia_total", "type": "string", "maxLength": 50 },
+      { "name": "duracion", "type": "string", "maxLength": 100 },
+      { "name": "entidad", "type": "string", "maxLength": 250 },
+      { "name": "entidades", "type": "string", "maxLength": 250 },
+      { "name": "fecha_fin", "type": "date" },
+      { "name": "fecha_inicio", "type": "date" },
+      { "name": "importe", "type": "number" },
+      { "name": "investigador", "type": "string", "maxLength": 100 },
+      { "name": "investigadores", "type": "string" },
+      { "name": "moneda", "type": "string", "maxLength": 20 },
+      { "name": "num_investigadores", "type": "number" },
+      { "name": "objetivo", "type": "string", "maxLength": 350 },
+      { "name": "papel", "type": "string", "maxLength": 50 },
+      { "name": "programa", "type": "string", "maxLength": 350 },
+      { "name": "tipo_dedicacion", "type": "string", "maxLength": 50 },
+      { "name": "titulo", "type": "string" },
+      { "name": "trabajo", "type": "string" }
+    ]
+  }
 
 
 }
