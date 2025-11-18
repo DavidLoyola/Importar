@@ -4,12 +4,19 @@
 <meta charset="UTF-8">
 <title>Validar CSV</title>
 <link rel="stylesheet" href="css/styles.css">
-<!-- CSS de Select2 -->
+<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+<!-- CSS de Select2 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-<!-- JS de Select2 -->
+ JS de Select2 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+-->
+
+<link href="assets/select2.min.css" rel="stylesheet" />
+<script src="assets/jquery.min.js"></script>
+<script src="assets/select2.min.js"></script>
+
+
 
 </head>
 <body>
@@ -797,6 +804,70 @@ document.getElementById("csvForm").addEventListener("submit", function(e) {
 
 
 
+<script>
+  const container = document.getElementById('tableContainer');
+
+  let isDragging = false;
+  let startX = 0;
+  let scrollStart = 0;
+  let rafId = null;
+
+  // --- Drag con ratón ---
+  container.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    container.classList.add('dragging');
+    startX = e.pageX - container.offsetLeft;
+    scrollStart = container.scrollLeft;
+  });
+
+  container.addEventListener('mouseup', () => {
+    isDragging = false;
+    container.classList.remove('dragging');
+    cancelAnimationFrame(rafId);
+  });
+
+  container.addEventListener('mouseleave', () => {
+    isDragging = false;
+    container.classList.remove('dragging');
+    cancelAnimationFrame(rafId);
+  });
+
+  container.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      container.scrollLeft = scrollStart - walk;
+    });
+  });
+
+  // --- Drag con táctil ---
+  let touchStartX = 0;
+  let touchScrollStart = 0;
+
+  container.addEventListener('touchstart', (e) => {
+    container.classList.add('dragging');
+    touchStartX = e.touches[0].pageX;
+    touchScrollStart = container.scrollLeft;
+  }, { passive: true });
+
+  container.addEventListener('touchmove', (e) => {
+    e.preventDefault(); // evita scroll vertical
+    const touchX = e.touches[0].pageX;
+    const walk = (touchX - touchStartX) * 1.5;
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      container.scrollLeft = touchScrollStart - walk;
+    });
+  }, { passive: false });
+
+  container.addEventListener('touchend', () => {
+    container.classList.remove('dragging');
+    cancelAnimationFrame(rafId);
+  });
+</script>
 
 
 

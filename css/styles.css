@@ -305,3 +305,20 @@ tbody tr:nth-child(even) {
   button:hover {
     background-color: #005a9e;
   }
+
+
+
+
+#tableContainer {
+  overflow-x: auto;
+  cursor: grab;
+  scroll-behavior: auto; /* evita retardo en drag */
+}
+
+#tableContainer.dragging,
+#tableContainer.dragging * {
+  user-select: none;          /* evita seleccionar texto */
+  -webkit-user-select: none;  /* Safari */
+  -ms-user-select: none;      /* IE/Edge legado */
+  cursor: grabbing;
+}
