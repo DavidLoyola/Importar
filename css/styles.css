@@ -81,6 +81,8 @@
     --button-disabled-bg: #ccc;
     --text-pagination-color: #000;
     --warning-td-bg: #fff3cd;
+    --td-warning-hover: #ffe8a1;
+    --td-warning-hover-color: #000;
     --color-primary-100: #192a67;
     --color-secondary-100: #81cde7;
     --color-background-100: #1f0c19;
@@ -145,6 +147,8 @@
   --button-disabled-bg: #555;
   --text-pagination-color: #e9e7e8;
   --warning-td-bg: #664d03;
+  --td-warning-hover: #806108;
+  --td-warning-hover-color: #000;
   --color-primary-100: #e9e7e8;
   --color-secondary-100: #81cde7;
   --color-background-100: #1f1f1f;
@@ -469,6 +473,11 @@ td:last-child, th:last-child {
 
 #csvTable tr.warning td {
   background-color: var(--warning-td-bg, #fff3cd);
+}
+
+#csvTable tr.warning:hover td {
+  background-color: var(--tr-warning-hover, #ffe8a1);
+  color: var(--td-warning-hover-color, #000);
 }
 
 .warning-msg {
