@@ -406,9 +406,14 @@ header.main-header .header-right {
 #tableContainer{
   margin-top: 20px;
   width: 100%;
+  padding: 15px;
   overflow-x: auto;
   box-shadow: 0 0 5px var(--table-shadow-color, rgba(0,0,0,0.05));
   border: var(--tablecontainer-border, 1px solid #ccc);
+  cursor: grab;
+  scroll-behavior: auto; /* evita retardo en drag */
+  display: none;
+  box-sizing: border-box;
 }
 #csvTable {
   width: 100%;
@@ -595,13 +600,8 @@ button:disabled {
   cursor: not-allowed;
 }
 
-
-
-#tableContainer {
-  overflow-x: auto;
-  cursor: grab;
-  scroll-behavior: auto; /* evita retardo en drag */
-  padding: 10px
+#tableContainer.active{
+  display: block;
 }
 
 #tableContainer.dragging,
