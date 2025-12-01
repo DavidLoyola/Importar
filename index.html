@@ -2,132 +2,99 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Validar CSV</title>
+<title>Validar/Comparar CSVs</title>
 <link rel="stylesheet" href="css/styles.css">
 <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-<!-- CSS de Select2 
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
- JS de Select2 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
--->
 
 <link href="assets/select2.min.css" rel="stylesheet" />
 <script src="assets/jquery.min.js"></script>
 <script src="assets/select2.min.js"></script>
 
-
-
 </head>
 <body>
 <div id="container">
     <header class="main-header">
-        <div class="logo">
-            <img src="images/logo.svg" alt="Logo Loyola">
-        </div>
+        <div class="logo"><img src="images/logo.svg" alt="Logo Loyola"></div>
         <div class="titulo">
             <h1>Investigación Loyola</h1>
             <p>Universidad Loyola</p>
         </div>
         <div class="header-right">
-            <div class="autor">
-            Creado por <strong>David Cambronero Martínez</strong>
-            </div>
+            <div class="autor">Creado por <strong>David Cambronero Martínez</strong></div>
             <button id="themeToggle" class="theme-toggle-btn" aria-label="Cambiar tema" aria-pressed="false">
-                <!-- Sol -->
-                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a4 4 0 1 1 -3.995 4.2l-.005 -.2l.005 -.2a4 4 0 0 1 3.995 -3.8z" /><path d="M12 4a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /><path d="M17 6a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /><path d="M19 11a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /><path d="M17 16a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /><path d="M12 18a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /><path d="M7 16a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /><path d="M5 11a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /><path d="M7 6a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" />
-                </svg>
-                
-                <!-- Luna -->
-                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z" />
-                </svg>
-              </button>
+                <!-- íconos -->
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a4 4 0 1 1 -3.995 4.2l-.005 -.2l.005 -.2a4 4 0 0 1 3.995 -3.8z" /><path d="M12 4a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /></svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z" /></svg>
+            </button>
         </div>
     </header>
 
     <main>
-          <!-- Sección formulario -->
-      <section class="csv-section">
-        <div class="csv-form">
-          <form id="csvForm">
-            <label for="option">Selecciona tipo de archivo:</label>
-            <select id="option" name="option">
-                  <option value="" disabled selected>-- Selecciona tipo de archivo --</option>
-                  <option value="01-PERSONAL">01-PERSONAL</option>
-                  <option value="02-PERSONAL-UNIDAD">02-PERSONAL-UNIDAD</option>
-                  <option value="03-PERSONAL-CV">03-PERSONAL-CV</option>
-                  <option value="04-PUBLICACIONES">04-PUBLICACIONES</option>
-                  <option value="05-CONGRESOS">05-CONGRESOS</option>
-                  <option value="06-PUBLICACIONES-UNIDADES">06-PUBLICACIONES-UNIDADES</option>
-                  <option value="07-PUBLICACIONES-PERSONAL">07-PUBLICACIONES-PERSONAL</option>
-                  <option value="08-PROYECTOS">08-PROYECTOS</option>
-                  <option value="09-PROYECTOS-UNIDAD">09-PROYECTOS-UNIDAD</option>
-                  <option value="10-PROYECTOS-PERSONAL">10-PROYECTOS-PERSONAL</option>
-                  <option value="11-UNIDADES">11-UNIDADES</option>
-                  <option value="12-LINEAS-UNIDADES">12-LINEAS-UNIDADES</option>
-                  <option value="13-LINEAS-PERSONAL">13-LINEAS-PERSONAL</option>
-                  <option value="14-TESIS-TFM">14-TESIS-TFM</option>
-                  <option value="15-TESISTFM-PERSONAL">15-TESISTFM-PERSONAL</option>
-                  <option value="16-OBRAS-ARTISTICAS">16-OBRAS-ARTISTICAS</option>
-                  <option value="17-OA-PERSONAL">17-OA-PERSONAL</option>
-                  <option value="18-EREVISTAS">18-EREVISTAS</option>
-                  <option value="19-PAIS-EXTERNOS">19-PAIS-EXTERNOS</option>
-                  <option value="20-TDOC">20-TDOC</option>
-                  <option value="21-PROYECTOS-EXTERNO">21-PROYECTOS-EXTERNO</option>
+      <!-- Pestañas -->
+      <div class="tabs" role="tablist" aria-label="Tabs">
+        <div class="tab active" data-target="tab-validate" role="tab" aria-selected="true">Verificar fichero</div>
+        <div class="tab" data-target="tab-compare" role="tab" aria-selected="false">Comparar ficheros</div>
+      </div>
+      
+      <!-- TAB 1: Verificar fichero -->
+      <section id="tab-validate" class="section active" aria-hidden="false">
+        <section class="csv-section">
+          <div class="csv-form">
+            <form id="csvForm">
+              <label for="option">Selecciona tipo de archivo:</label>
+              <select id="option" name="option">
+                <option value="" disabled selected>-- Selecciona tipo de archivo --</option>
+                <option value="01-PERSONAL">01-PERSONAL</option>
+                <option value="02-PERSONAL-UNIDAD">02-PERSONAL-UNIDAD</option>
+                <option value="03-PERSONAL-CV">03-PERSONAL-CV</option>
+                <option value="04-PUBLICACIONES">04-PUBLICACIONES</option>
+                <option value="05-CONGRESOS">05-CONGRESOS</option>
+                <option value="06-PUBLICACIONES-UNIDADES">06-PUBLICACIONES-UNIDADES</option>
+                <option value="07-PUBLICACIONES-PERSONAL">07-PUBLICACIONES-PERSONAL</option>
+                <option value="08-PROYECTOS">08-PROYECTOS</option>
+                <option value="09-PROYECTOS-UNIDAD">09-PROYECTOS-UNIDAD</option>
+                <option value="10-PROYECTOS-PERSONAL">10-PROYECTOS-PERSONAL</option>
+                <option value="11-UNIDADES">11-UNIDADES</option>
+                <option value="12-LINEAS-UNIDADES">12-LINEAS-UNIDADES</option>
+                <option value="13-LINEAS-PERSONAL">13-LINEAS-PERSONAL</option>
+                <option value="14-TESIS-TFM">14-TESIS-TFM</option>
+                <option value="15-TESISTFM-PERSONAL">15-TESISTFM-PERSONAL</option>
+                <option value="16-OBRAS-ARTISTICAS">16-OBRAS-ARTISTICAS</option>
+                <option value="17-OA-PERSONAL">17-OA-PERSONAL</option>
+                <option value="18-EREVISTAS">18-EREVISTAS</option>
+                <option value="19-PAIS-EXTERNOS">19-PAIS-EXTERNOS</option>
+                <option value="20-TDOC">20-TDOC</option>
+                <option value="21-PROYECTOS-EXTERNO">21-PROYECTOS-EXTERNO</option>
               </select>
-            <br><br>
-            <label for="file">Sube tu CSV:</label>
-            <input type="file" id="file" accept=".csv">
-
-            <br><br>
-            <button id="validarbutton" type="submit">Validar</button>
-          </form>
-        </div>
-      </section>
-
-          <!-- Sección resultados -->
-        <section class="result-section">
-            <div id="result"></div>
-              <div class="export-container">
-                <button id="exportSQL" style="display:none;">
-                  <div class="export-content">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
-                    <span>Exportar</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-sql"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M5 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75" /><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" /><path d="M18 15v6h2" /><path d="M13 15a2 2 0 0 1 2 2v2a2 2 0 1 1 -4 0v-2a2 2 0 0 1 2 -2z" /><path d="M14 20l1.5 1.5" /></svg>
-                  </div>
-                </button>
-              </div>
+              <br><br>
+              <label for="file">Sube tu CSV:</label>
+              <input type="file" id="file" accept=".csv">
+              <br><br>
+              <button id="validarbutton" class="small-btn" type="submit">Validar</button>
+            </form>
+          </div>
         </section>
 
-          <!-- Sección controles -->
-        <section class="table-sectionn">
-          <div id="filterControls"></div>
-
-          <!-- Controles de tabla -->
-          <div class="table-controls" id="tableControls" style="display:none;">
-            <label id="label_search">
-              Buscar:
-              <input type="text" id="searchInput" placeholder="Filtrar filas..." />
-            </label>
-            <label id="label_pageSize">
-              Filas por página:
-              <select id="pageSize">
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
-                <option>100</option>
-              </select>
-            </label>
+        <!-- Resultados Verificar -->
+        <section class="result-section">
+          <div id="result"></div>
+          <div class="export-container">
+            <button id="exportSQL" style="display:none;">
+              <div class="export-content">Exportar SQL</div>
+            </button>
           </div>
+        </section>
 
-          <!-- Tabla -->
+        <!-- Controles y tabla -->
+        <section class="table-section">
+          <div id="filterControls"></div>
+          <div class="table-controls" id="tableControls" style="display:none;">
+            <label id="label_search">Buscar:<input type="text" id="searchInput" placeholder="Filtrar filas..." /></label>
+            <label id="label_pageSize">Filas por página:<select id="pageSize"><option>10</option><option>25</option><option>50</option><option>100</option></select></label>
+          </div>
           <div id="tableContainer">
             <table id="csvTable">
-              <thead>
-                <tr id="tableHeader"></tr>
-              </thead>
+              <thead><tr id="tableHeader"></tr></thead>
               <tbody id="tableBody"></tbody>
             </table>
             <div class="pagination" id="pagination" style="display:none;">
@@ -137,427 +104,266 @@
             </div>
           </div>
         </section>
-      </main>
+      </section>
+
+      <!-- TAB 2: Comparar ficheros -->
+      <section id="tab-compare" class="section" aria-hidden="true">
+        <div class="csv-form">
+          <form id="compareForm">
+            <label for="optionCompare">Selecciona tipo de archivo:</label>
+            <select id="optionCompare" name="optionCompare">
+              <option value="" disabled selected>-- Selecciona tipo de archivo --</option>
+              <option value="01-PERSONAL">01-PERSONAL</option>
+              <option value="02-PERSONAL-UNIDAD">02-PERSONAL-UNIDAD</option>
+              <option value="03-PERSONAL-CV">03-PERSONAL-CV</option>
+              <option value="04-PUBLICACIONES">04-PUBLICACIONES</option>
+              <option value="05-CONGRESOS">05-CONGRESOS</option>
+              <option value="06-PUBLICACIONES-UNIDADES">06-PUBLICACIONES-UNIDADES</option>
+              <option value="07-PUBLICACIONES-PERSONAL">07-PUBLICACIONES-PERSONAL</option>
+              <option value="08-PROYECTOS">08-PROYECTOS</option>
+              <option value="09-PROYECTOS-UNIDAD">09-PROYECTOS-UNIDAD</option>
+              <option value="10-PROYECTOS-PERSONAL">10-PROYECTOS-PERSONAL</option>
+              <option value="11-UNIDADES">11-UNIDADES</option>
+              <option value="12-LINEAS-UNIDADES">12-LINEAS-UNIDADES</option>
+              <option value="13-LINEAS-PERSONAL">13-LINEAS-PERSONAL</option>
+              <option value="14-TESIS-TFM">14-TESIS-TFM</option>
+              <option value="15-TESISTFM-PERSONAL">15-TESISTFM-PERSONAL</option>
+              <option value="16-OBRAS-ARTISTICAS">16-OBRAS-ARTISTICAS</option>
+              <option value="17-OA-PERSONAL">17-OA-PERSONAL</option>
+              <option value="18-EREVISTAS">18-EREVISTAS</option>
+              <option value="19-PAIS-EXTERNOS">19-PAIS-EXTERNOS</option>
+              <option value="20-TDOC">20-TDOC</option>
+              <option value="21-PROYECTOS-EXTERNO">21-PROYECTOS-EXTERNO</option>
+            </select>
+            <br><br>
+            <label>CSV Anterior:</label>
+            <input type="file" id="fileOld" accept=".csv">
+            <br><br>
+            <label>CSV Actual:</label>
+            <input type="file" id="fileNew" accept=".csv">
+            <br><br>
+            <div class="compare-controls">
+              <button id="compareBtn" type="button" class="small-btn">Comparar</button>
+              <label><input type="checkbox" id="includeModified" checked> Mostrar modificados</label>
+              <label><input type="checkbox" id="ignoreWhitespace" checked> Ignorar diferencias de espacios</label>
+            </div>
+          </form>
+        </div>
+
+        <div id="compareResult">
+          <div class="results-summary" id="compareSummary"></div>
+
+          <div class="results-block" id="addedBlock" style="display:none;">
+            <div class="title">
+              <div>Registros <strong>añadidos</strong></div>
+              <div><button class="small-btn" id="exportAdded">Exportar CSV añadidos</button></div>
+            </div>
+            <div class="table-wrap"><table id="addedTable"><thead></thead><tbody></tbody></table></div>
+          </div>
+
+          <div class="results-block" id="deletedBlock" style="display:none;">
+            <div class="title">
+              <div>Registros <strong>eliminados</strong></div>
+              <div><button class="small-btn" id="exportDeleted">Exportar CSV eliminados</button></div>
+            </div>
+            <div class="table-wrap"><table id="deletedTable"><thead></thead><tbody></tbody></table></div>
+          </div>
+
+          <div class="results-block" id="modifiedBlock" style="display:none;">
+            <div class="title">
+              <div>Registros <strong>modificados</strong></div>
+              <div><button class="small-btn" id="exportModified">Exportar CSV modificados (antiguo->nuevo)</button></div>
+            </div>
+            <div class="table-wrap"><table id="modifiedTable"><thead></thead><tbody></tbody></table></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
 </div>
 
 <script>
+const config = {
+  "01-PERSONAL": { "delimiter": "|", "columns": [ { "name": "apellido1" }, { "name": "apellido2" }, { "name": "area" }, { "name": "categoria" }, { "name": "departamento" }, { "name": "email", "type":"email" }, { "name": "id", "type":"number", "required": true }, { "name": "dni" }, { "name": "nombre", "required": true }, { "name": "sexo" } ] },
+  "02-PERSONAL-UNIDAD": { "delimiter": "|", "columns": [ { "name":"codigounidad" }, { "name":"id","type":"number","required":true } ] },
+  "03-PERSONAL-CV": { "delimiter": "|", "columns": [ { "name":"dni","required":true }, { "name":"orcidid" }, { "name":"resumen" } ] },
+  "04-PUBLICACIONES": { "delimiter": "|", "columns": [ { "name":"abstract" }, { "name":"alcance" }, { "name":"ambito" }, { "name":"autores" }, { "name":"cuartil_jcr","type":"number" }, { "name":"cuartil_sjr","type":"number" }, { "name":"instituto" }, { "name":"doi" }, { "name":"editorial" }, { "name":"evento" }, { "name":"externa" }, { "name":"fecha_publicacion","type":"date" }, { "name":"impacto_jcr","type":"number" }, { "name":"impacto_sjr","type":"number" }, { "name":"id","type":"number","required":true }, { "name":"indexada_jcr" }, { "name":"indexada_sjr" }, { "name":"isi" }, { "name":"naturaleza" }, { "name":"numautores","type":"number" }, { "name":"observaciones" }, { "name":"keywords" }, { "name":"pubmed_id" }, { "name":"scopus_id" }, { "name":"colaboracion" }, { "name":"titulo","required":true }, { "name":"medio" }, { "name":"web" }, { "name":"decil_jcr","type":"number" }, { "name":"fecha_aceptacion","type":"date" }, { "name":"codigo_medio" } ] },
+  "05-CONGRESOS": { "delimiter":"|","columns":[{ "name":"alcance" },{ "name":"ambito" },{ "name":"autores" },{ "name":"evento" },{ "name":"externa" },{ "name":"fecha_finalizacion","type":"date" },{ "name":"fecha_publicacion","type":"date" },{ "name":"id","type":"number","required":true },{ "name":"indexada_jcr" },{ "name":"indexada_sjr" },{ "name":"scopus_id" },{ "name":"titulo","required":true },{ "name":"medio" } ] },
+  "06-PUBLICACIONES-UNIDADES": { "delimiter":"|","columns":[{ "name":"id","required":true },{ "name":"id_publicacion","type":"number","required":true }] },
+  "07-PUBLICACIONES-PERSONAL": { "delimiter":"|","columns":[{ "name":"id","type":"number","required":true },{ "name":"dni","required":true },{ "name":"calidad" }] },
+  "08-PROYECTOS": { "delimiter":"|","columns":[{ "name":"area" },{ "name":"codigo","required":true },{ "name":"fecha_publicacion","type":"date" },{ "name":"financiador" },{ "name":"importe","type":"number" },{ "name":"objetivos" },{ "name":"abreviado" },{ "name":"titulo" },{ "name":"stakeholder" },{ "name":"naturaleza" },{ "name":"importe_total_concesion","type":"number" },{ "name":"fecha_finalizacion","type":"date" } ] },
+  "09-PROYECTOS-UNIDAD": { "delimiter":"|","columns":[{ "name":"id","required":true },{ "name":"codigo_proyecto","required":true }] },
+  "10-PROYECTOS-PERSONAL": { "delimiter":"|","columns":[{ "name":"codigo","required":true },{ "name":"calidad" },{ "name":"comienzo","type":"date" },{ "name":"dni","required":true }] },
+  "11-UNIDADES": { "delimiter":"|","columns":[{ "name":"tipo","required":true },{ "name":"codigo","required":true },{ "name":"nombre","required":true },{ "name":"responsable" },{ "name":"objetivos" }] },
+  "12-LINEAS-UNIDADES": { "delimiter":"|","columns":[{ "name":"codigo","required":true },{ "name":"codigolinea","required":true },{ "name":"linea","required":true },{ "name":"descripcion" }] },
+  "13-LINEAS-PERSONAL": { "delimiter":"|","columns":[{ "name":"codigolinea","required":true },{ "name":"id","required":true },{ "name":"responsable" }] },
+  "14-TESIS-TFM": { "delimiter":"|","columns":[{ "name":"autores" },{ "name":"calificacion" },{ "name":"cita_bibliografica" },{ "name":"ciudad_lectura" },{ "name":"codigo","required":true },{ "name":"descartada" },{ "name":"doctorado_europeo" },{ "name":"entidad_financiadora" },{ "name":"estado" },{ "name":"externa" },{ "name":"fecha_inicio","type":"date" },{ "name":"fecha_lectura","type":"date" },{ "name":"fecha_mencion","type":"date" },{ "name":"fecha_recepcion","type":"date" },{ "name":"mencion_calidad" },{ "name":"nota" },{ "name":"observaciones" },{ "name":"pais" },{ "name":"programa_academico" },{ "name":"remite" },{ "name":"tipo" },{ "name":"titulo" },{ "name":"universidad" },{ "name":"usuario_reserva" },{ "name":"web" }] },
+  "15-TESISTFM-PERSONAL": { "delimiter":"|","columns":[{ "name":"dni","required":true },{ "name":"codigo_tesis","required":true },{ "name":"calidad" }] },
+  "16-OBRAS-ARTISTICAS": { "delimiter":"|","columns":[{ "name":"nombre_completo" },{ "name":"ambito" },{ "name":"area" },{ "name":"area_actuacion" },{ "name":"campania" },{ "name":"cita_bibliografica" },{ "name":"comercializacion" },{ "name":"convenios_colaboracion" },{ "name":"destacado" },{ "name":"descripcion_origen" },{ "name":"difundido" },{ "name":"empresas" },{ "name":"especialidad" },{ "name":"especializacion_1" },{ "name":"especializacion_2" },{ "name":"especializacion_3" },{ "name":"estado" },{ "name":"externo" },{ "name":"fecha_registro","type":"date" },{ "name":"genera_proteccion" },{ "name":"genera_spinoff" },{ "name":"gran_area" },{ "name":"grupo_innovacion" },{ "name":"id_resultado","type":"number" },{ "name":"idea" },{ "name":"naturaleza" },{ "name":"expediente" },{ "name":"nuevas_tecnicas" },{ "name":"pendiente_validar" },{ "name":"propiedad" },{ "name":"protegible" },{ "name":"servicios" },{ "name":"remite" },{ "name":"resultados" },{ "name":"resumen" },{ "name":"tipo" },{ "name":"tipo_protecciones" },{ "name":"tipo_origen" },{ "name":"titulo" },{ "name":"abreviado" },{ "name":"utilizado" },{ "name":"visible_web" }] },
+  "17-OA-PERSONAL": { "delimiter":"|","columns":[{ "name":"dni","required":true },{ "name":"expediente","required":true }] },
+  "18-EREVISTAS": { "delimiter":"|","columns":[{ "name":"dni","required":true },{ "name":"nombre_completo","required":true },{ "name":"ambito_consejo" },{ "name":"cargo" },{ "name":"ciudad" },{ "name":"ciudad_radicacion" },{ "name":"entidad_depende" },{ "name":"fecha_fin","type":"date" },{ "name":"fecha_inicio","type":"date" },{ "name":"nombre_consejo" },{ "name":"observacion" },{ "name":"pais" },{ "name":"pais_radicacion" },{ "name":"web" },{ "name":"tareas_desarrolladas" },{ "name":"tipo_entidad" }] },
+  "19-PAIS-EXTERNOS": { "delimiter":"|","columns":[{ "name":"id_publicacion","type":"number","required":true },{ "name":"pais" }] },
+  "20-TDOC": { "delimiter":"|","columns":[{ "name":"dni","required":true },{ "name":"expediente","required":true }] },
+  "21-PROYECTOS-EXTERNO": { "delimiter":"|","columns":[{ "name":"dni","required":true },{ "name":"ambito" },{ "name":"codigo","required":true },{ "name":"competitivo" },{ "name":"cuantia_total" },{ "name":"duracion" },{ "name":"entidad" },{ "name":"entidades" },{ "name":"fecha_fin","type":"date" },{ "name":"fecha_inicio","type":"date" },{ "name":"importe","type":"number" },{ "name":"investigador" },{ "name":"investigadores" },{ "name":"moneda" },{ "name":"num_investigadores","type":"number" },{ "name":"objetivo" },{ "name":"papel" },{ "name":"programa" },{ "name":"tipo_dedicacion" },{ "name":"titulo" },{ "name":"trabajo" }] }
+};
 
-  const config = {
-  "01-PERSONAL": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "apellido1", "type": "string", "maxLength": 100, "required": true },
-      { "name": "apellido2", "type": "string", "maxLength": 100 },
-      { "name": "area", "type": "string", "maxLength": 100 },      
-      { "name": "categoria", "type": "string", "maxLength": 100 }, 
-      { "name": "departamento", "type": "string", "maxLength": 100 },
-      { "name": "email", "type": "email", "maxLength": 100 },
-      { "name": "id", "type": "number", "required": true },
-      { "name": "dni", "type": "string", "maxLength": 10 },
-      { "name": "nombre", "type": "string", "maxLength": 100, "required": true },
-      { "name": "sexo", "type": "string" } 
-    ]
-  },
-  "02-PERSONAL-UNIDAD": {
-    "delimiter": "|",
-    "columns": [
-        { "name": "codigounidad", "type": "string", "maxLength": 50, "required": true },
-        { "name": "id", "type": "number", "required": true }
-      ]
-  },
-  "03-PERSONAL-CV": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
-      { "name": "orcidid", "type": "string", "maxLength": 100 },
-      { "name": "resumen", "type": "string" }
-    ]
-  },
-  "04-PUBLICACIONES": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "abstract", "type": "string" },
-      { "name": "alcance", "type": "string" },
-      { "name": "ambito", "type": "string" },
-      { "name": "autores", "type": "string" },
-      { "name": "cuartil_jcr", "type": "number" },
-      { "name": "cuartil_sjr", "type": "number" },
-      { "name": "instituto", "type": "string" },
-      { "name": "doi", "type": "string" },
-      { "name": "editorial", "type": "string" },
-      { "name": "evento", "type": "string" },
-      { "name": "externa", "type": "string" },
-      { "name": "fecha_publicacion", "type": "date" },
-      { "name": "impacto_jcr", "type": "number" },
-      { "name": "impacto_sjr", "type": "number" },
-      { "name": "id", "type": "number", "required": true },
-      { "name": "indexada_jcr", "type": "string" },
-      { "name": "indexada_sjr", "type": "string" },
-      { "name": "isi", "type": "string" },
-      { "name": "naturaleza", "type": "string" },
-      { "name": "numautores", "type": "number" },
-      { "name": "observaciones", "type": "string" },
-      { "name": "keywords", "type": "string" },
-      { "name": "pubmed_id", "type": "string" },
-      { "name": "scopus_id", "type": "string" },
-      { "name": "colaboracion", "type": "string" },
-      { "name": "titulo", "type": "string", "required": true },
-      { "name": "medio", "type": "string" },
-      { "name": "web", "type": "string" },
-      { "name": "decil_jcr", "type": "number" },
-      { "name": "fecha_aceptacion", "type": "date" },
-      { "name": "codigo_medio", "type": "string" }
-      ]
-    },
-  "05-CONGRESOS": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "alcance", "type": "string" },
-      { "name": "ambito", "type": "string" },
-      { "name": "autores", "type": "string" },
-      { "name": "evento", "type": "string" },
-      { "name": "externa", "type": "string" },
-      { "name": "fecha_finalizacion", "type": "date" },
-      { "name": "fecha_publicacion", "type": "date" },
-      { "name": "id", "type": "number", "required": true },
-      { "name": "indexada_jcr", "type": "string" },
-      { "name": "indexada_sjr", "type": "string" },
-      { "name": "scopus_id", "type": "string" },
-      { "name": "titulo", "type": "string", "required": true },
-      { "name": "medio", "type": "string" }
-    ]
-  },
-  "06-PUBLICACIONES-UNIDADES": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "id", "type": "string", "maxLength": 50, "required": true },
-      { "name": "id_publicacion", "type": "number", "required": true  }
-    ]
-  },
-  "07-PUBLICACIONES-PERSONAL": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "id", "type": "number", "required": true },
-      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
-      { "name": "calidad", "type": "string", "maxLength": 50 }
-    ]
-  },
-  "08-PROYECTOS": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "area", "type": "string", "maxLength": 100 },
-      { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
-      { "name": "fecha_publicacion", "type": "date" },
-      { "name": "financiador", "type": "string", "maxLength": 250 },
-      { "name": "importe", "type": "number" },
-      { "name": "objetivos", "type": "string" },
-      { "name": "abreviado", "type": "string", "maxLength": 100 },
-      { "name": "titulo", "type": "string", "maxLength": 500 },
-      { "name": "stakeholder", "type": "string", "maxLength": 250 },
-      { "name": "naturaleza", "type": "string", "maxLength": 50 },
-      { "name": "importe_total_concesion", "type": "number" },
-      { "name": "fecha_finalizacion", "type": "date" }
-    ]
-  },
-  "09-PROYECTOS-UNIDAD": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "id", "type": "string", "maxLength": 50, "required": true },
-      { "name": "codigo_proyecto", "type": "string", "maxLength": 80, "required": true  }
-    ]
-  },
-  "10-PROYECTOS-PERSONAL": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "codigo", "type": "string", "maxLength": 80, "required": true },
-      { "name": "calidad", "type": "string", "maxLength": 50 },
-      { "name": "comienzo", "type": "date" },
-      { "name": "dni", "type": "string", "maxLength": 10, "required": true }
-    ]
-  },
-  "11-UNIDADES": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "tipo", "type": "string", "maxLength": 20, "required": true },
-      { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
-      { "name": "nombre", "type": "string", "maxLength": 100, "required": true },
-      { "name": "responsable", "type": "string", "maxLength": 255 },
-      { "name": "objetivos", "type": "string" }
-    ]
-  },
-  "12-LINEAS-UNIDADES": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "codigo", "type": "string", "maxLength": 50, "required": true },
-      { "name": "codigolinea", "type": "string", "maxLength": 20, "required": true },
-      { "name": "linea", "type": "string", "maxLength": 250, "required": true },
-      { "name": "descripcion", "type": "string" }
-    ]
-  },
-  "13-LINEAS-PERSONAL": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "codigolinea", "type": "string", "maxLength": 20, "required": true },
-      { "name": "id", "type": "number", "maxLength": 11,"required": true  },
-      { "name": "responsable", "type": "string", "maxLength": 5 },
-    ]
-  },
-  "14-TESIS-TFM": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "autores", "type": "string", "maxLength": 255 },
-      { "name": "calificacion", "type": "string", "maxLength": 100 },
-      { "name": "cita_bibliografica", "type": "string" },
-      { "name": "ciudad_lectura", "type": "string", "maxLength": 100 },
-      { "name": "codigo", "type": "string", "maxLength": 20, "required": true },
-      { "name": "descartada", "type": "string", "maxLength": 2 },
-      { "name": "doctorado_europeo","type": "string", "maxLength": 2 },
-      { "name": "entidad_financiadora", "type": "string", "maxLength": 100 },
-      { "name": "estado", "type": "string", "maxLength": 100 },
-      { "name": "externa", "type": "string", "maxLength": 2 },
-      { "name": "fecha_inicio", "type": "date" },
-      { "name": "fecha_lectura", "type": "date" },
-      { "name": "fecha_mencion", "type": "date" },
-      { "name": "fecha_recepcion", "type": "date" },
-      { "name": "mencion_calidad", "type": "string", "maxLength": 2 },
-      { "name": "nota", "type": "string" },
-      { "name": "observaciones", "type": "string" },
-      { "name": "pais", "type": "string", "maxLength": 100 },
-      { "name": "programa_academico", "type": "string", "maxLength": 255 },
-      { "name": "remite", "type": "string", "maxLength": 255 },
-      { "name": "tipo", "type": "string"},
-      { "name": "titulo", "type": "string", "maxLength": 500 },
-      { "name": "universidad", "type": "string", "maxLength": 200 },
-      { "name": "usuario_reserva", "type": "string", "maxLength": 100 },
-      { "name": "web", "type": "string", "maxLength": 200 }
-    ]
-  },
-  "15-TESISTFM-PERSONAL": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
-      { "name": "codigo_tesis", "type": "string", "maxLength": 20, "required": true },
-      { "name": "calidad", "type": "string", "maxLength": 50 },
-    ]
-  },
-  "16-OBRAS-ARTISTICAS": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "nombre_completo", "type": "string", "maxLength": 200 },
-      { "name": "ambito", "type": "string", "maxLength": 50 },
-      { "name": "area", "type": "string", "maxLength": 100 },
-      { "name": "area_actuacion", "type": "string", "maxLength": 100 },
-      { "name": "campania", "type": "string", "maxLength": 200 },
-      { "name": "cita_bibliografica", "type": "string", "maxLength": 500 },
-      { "name": "comercializacion", "type": "string", "maxLength": 2 },
-      { "name": "convenios_colaboracion", "type": "string", "maxLength": 2 },
-      { "name": "destacado", "type": "string", "maxLength": 2 },
-      { "name": "descripcion_origen", "type": "string", "maxLength": 255 },
-      { "name": "difundido", "type": "string", "maxLength": 2 },
-      { "name": "empresas", "type": "string", "maxLength": 2 },
-      { "name": "especialidad", "type": "string", "maxLength": 255 },
-      { "name": "especializacion_1", "type": "string", "maxLength": 255 },
-      { "name": "especializacion_2", "type": "string", "maxLength": 255 },
-      { "name": "especializacion_3", "type": "string", "maxLength": 255 },
-      { "name": "estado", "type": "string", "maxLength": 50 },
-      { "name": "externo", "type": "string", "maxLength": 2 },
-      { "name": "fecha_registro", "type": "date" },
-      { "name": "genera_proteccion", "type": "string", "maxLength": 2 },
-      { "name": "genera_spinoff", "type": "string", "maxLength": 2 },
-      { "name": "gran_area", "type": "string", "maxLength": 255 },
-      { "name": "grupo_innovacion", "type": "string", "maxLength": 255 },
-      { "name": "id_resultado", "type": "number" },
-      { "name": "idea", "type": "string", "maxLength": 255 },
-      { "name": "naturaleza", "type": "string", "maxLength": 100 },
-      { "name": "expediente", "type": "string", "maxLength": 15 },
-      { "name": "nuevas_tecnicas", "type": "string", "maxLength": 2 },
-      { "name": "pendiente_validar", "type": "string", "maxLength": 2 },
-      { "name": "propiedad", "type": "string", "maxLength": 50 },
-      { "name": "protegible", "type": "string", "maxLength": 2 },
-      { "name": "servicios", "type": "string", "maxLength": 2 },
-      { "name": "remite", "type": "string", "maxLength": 255 },
-      { "name": "resultados", "type": "string", "maxLength": 2 },
-      { "name": "resumen", "type": "string" },
-      { "name": "tipo", "type": "string", "maxLength": 255 },
-      { "name": "tipo_protecciones", "type": "string", "maxLength": 100 },
-      { "name": "tipo_origen", "type": "string", "maxLength": 100 },
-      { "name": "titulo", "type": "string", "maxLength": 500 },
-      { "name": "abreviado", "type": "string", "maxLength": 255 },
-      { "name": "utilizado", "type": "string", "maxLength": 2 },
-      { "name": "visible_web", "type": "string", "maxLength": 2 }
-    ]
-  },
-  "17-OA-PERSONAL": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
-      { "name": "expediente", "type": "string", "maxLength": 15, "required": true },
-    ]
-  },
-  "18-EREVISTAS": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
-      { "name": "nombre_completo", "type": "string", "maxLength": 200, "required": true },
-      { "name": "ambito_consejo", "type": "string", "maxLength": 50 },
-      { "name": "cargo", "type": "string", "maxLength": 100 },
-      { "name": "ciudad", "type": "string", "maxLength": 100 },
-      { "name": "ciudad_radicacion", "type": "string", "maxLength": 100 },
-      { "name": "entidad_depende", "type": "string", "maxLength": 255 },
-      { "name": "fecha_fin", "type": "date" },
-      { "name": "fecha_inicio", "type": "date" },
-      { "name": "nombre_consejo", "type": "string" },
-      { "name": "observacion", "type": "string"},
-      { "name": "pais", "type": "string", "maxLength": 100 },
-      { "name": "pais_radicacion", "type": "string", "maxLength": 50 },
-      { "name": "web", "type": "string", "maxLength": 255 },
-      { "name": "tareas_desarrolladas", "type": "string" },
-      { "name": "tipo_entidad", "type": "string", "maxLength": 100 }
-    ]
-  },
-  "19-PAIS-EXTERNOS": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "id_publicacion", "type": "number", "maxLength": 11, "required": true },
-      { "name": "pais", "type": "string", "maxLength": 200 }
-    ]
-  },
-  "20-TDOC": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
-      { "name": "expediente", "type": "string", "maxLength": 15, "required": true },
-    ]
-  },
-  "21-PROYECTOS-EXTERNO": {
-    "delimiter": "|",
-    "columns": [
-      { "name": "dni", "type": "string", "maxLength": 10, "required": true },
-      { "name": "ambito", "type": "string", "maxLength": 50 },
-      { "name": "codigo", "type": "string", "maxLength": 80, "required": true },
-      { "name": "competitivo", "type": "string", "maxLength": 2 },
-      { "name": "cuantia_total", "type": "string", "maxLength": 50 },
-      { "name": "duracion", "type": "string", "maxLength": 100 },
-      { "name": "entidad", "type": "string", "maxLength": 250 },
-      { "name": "entidades", "type": "string", "maxLength": 250 },
-      { "name": "fecha_fin", "type": "date" },
-      { "name": "fecha_inicio", "type": "date" },
-      { "name": "importe", "type": "number" },
-      { "name": "investigador", "type": "string", "maxLength": 100 },
-      { "name": "investigadores", "type": "string" },
-      { "name": "moneda", "type": "string", "maxLength": 20 },
-      { "name": "num_investigadores", "type": "number" },
-      { "name": "objetivo", "type": "string", "maxLength": 350 },
-      { "name": "papel", "type": "string", "maxLength": 50 },
-      { "name": "programa", "type": "string", "maxLength": 350 },
-      { "name": "tipo_dedicacion", "type": "string", "maxLength": 50 },
-      { "name": "titulo", "type": "string" },
-      { "name": "trabajo", "type": "string" }
-    ]
+const keyColumnsMap = {
+  "01-PERSONAL": ["id"],
+  "02-PERSONAL-UNIDAD": ["id"],
+  "03-PERSONAL-CV": ["dni"],
+  "04-PUBLICACIONES": ["id"],
+  "05-CONGRESOS": ["id"],
+  "06-PUBLICACIONES-UNIDADES": ["id","id_publicacion"],
+  "07-PUBLICACIONES-PERSONAL": ["id","dni"],
+  "08-PROYECTOS": ["codigo"],
+  "09-PROYECTOS-UNIDAD": ["id","codigo_proyecto"],
+  "10-PROYECTOS-PERSONAL": ["codigo","dni"],
+  "11-UNIDADES": ["codigo"],
+  "12-LINEAS-UNIDADES": ["codigo","codigolinea"],
+  "13-LINEAS-PERSONAL": ["codigolinea","id"],
+  "14-TESIS-TFM": ["codigo"],
+  "15-TESISTFM-PERSONAL": ["dni","codigo_tesis"],
+  "16-OBRAS-ARTISTICAS": ["id_resultado"],
+  "17-OA-PERSONAL": ["dni","expediente"],
+  "18-EREVISTAS": ["dni","nombre_completo"],
+  "19-PAIS-EXTERNOS": ["id_publicacion"],
+  "20-TDOC": ["dni","expediente"],
+  "21-PROYECTOS-EXTERNO": ["codigo"]
+};
+
+function parsePipeCsvWithQuotes(text, delimiter = "|", quote = '"') {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const next = text[i + 1];
+    if (ch === quote) {
+      if (inQuotes && next === quote) {
+        cell += quote;
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+    if (ch === delimiter && !inQuotes) {
+      row.push(cell);
+      cell = "";
+      continue;
+    }
+    if ((ch === "\n" || ch === "\r") && !inQuotes) {
+      if (ch === "\r" && next === "\n") i++;
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+      continue;
+    }
+    cell += ch;
   }
+  if (cell.length > 0 || row.length > 0) {
+    row.push(cell);
+    rows.push(row);
+  }
+  // Trim cells
+  return rows.map(r => r.map(c => c.trim()));
 }
 
-function generateSQL(items, option, batchSize = 100) {
-  const expectedColumns = config[option].columns.map(c => c.name);
-  let sql = "";
-  
-  for (let i = 0; i < items.length; i += batchSize) {
-    const batch = items.slice(i, i + batchSize);
-    sql += `INSERT INTO ${option.toLowerCase()} (${expectedColumns.join(", ")}) VALUES\n`;
-    sql += batch.map(item => "(" + item.cells.map(v => {
-      const safe = (v || "").replace(/'/g, "''");
-      return isNaN(v) || v === "" ? `'${safe}'` : safe;
-    }).join(", ") + ")").join(",\n");
-    sql += ";\n\n";
+function arrayRowToObject(row, expectedColumns) {
+  const obj = {};
+  for (let i = 0; i < expectedColumns.length; i++) {
+    const name = expectedColumns[i].name;
+    obj[name] = row[i] !== undefined ? row[i] : "";
   }
-  return sql;
+  return obj;
 }
 
+function readFileAsArrayBufferPromise(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = e => reject(e);
+    reader.readAsArrayBuffer(file);
+  });
+}
 
-function downloadSQL(sql) {
-  const blob = new Blob([sql], { type: "text/sql" });
+function downloadText(filename, content, mime='text/plain') {
+  const blob = new Blob([content], { type: mime });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = url;
-  a.download = "datos.sql";
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
 
+function toCSV(rows, headers) {
+  const esc = v => {
+    if (v === null || v === undefined) return '';
+    const s = String(v);
+    if (s.includes('"') || s.includes(',') || s.includes('\n')) {
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  };
+  const head = headers.join(",");
+  const body = rows.map(r => headers.map(h => esc(r[h] ?? "")).join(",")).join("\n");
+  return head + "\n" + body;
+}
 
-document.getElementById("csvForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.getAttribute('data-target');
+    document.getElementById(target).classList.add('active');
+  });
+});
 
-  // Estado global
+$(document).ready(function() {
+  $('#option, #optionCompare').select2({
+    placeholder: "-- Selecciona tipo de archivo --",
+    allowClear: true,
+    width: '100%',
+    dropdownCssClass: 'select2-custom',
+    selectionCssClass: 'select2-custom'
+  });
+});
+
+(function setupValidation() {
+  // referencias UI
+  const csvForm = document.getElementById('csvForm');
+  const optionEl = document.getElementById('option');
+  const fileInput = document.getElementById('file');
+  const resultDiv = document.getElementById('result');
+  const headerRow = document.getElementById('tableHeader');
+  const body = document.getElementById('tableBody');
+  const tableControls = document.getElementById('tableControls');
+  const paginationEl = document.getElementById('pagination');
+  const searchInput = document.getElementById('searchInput');
+  const pageSizeSelect = document.getElementById('pageSize');
+  const prevBtn = document.getElementById('prevPage');
+  const nextBtn = document.getElementById('nextPage');
+  const pageInfo = document.getElementById('pageInfo');
+  const exportBtn = document.getElementById('exportSQL');
+
   let warnings = [];
-  let allItems = [];      // [{ cells: string[], hasWarning: boolean }]
-  let filteredItems = []; // mismo formato
+  let allItems = [];      
+  let filteredItems = [];
   let currentPage = 1;
+  resultDiv.className = "";
+  resultDiv.textContent = "";
+  headerRow.innerHTML = "";
+  body.innerHTML = "";
+  tableControls.style.display = "none";
+  paginationEl.style.display = "none";
+  document.getElementById("tableContainer").style.display = "none"; // ocultar siempre al inicio
 
-  // Referencias UI
-  const option = document.getElementById("option").value;
-  const fileInput = document.getElementById("file");
-  const resultDiv = document.getElementById("result");
-  const headerRow = document.getElementById("tableHeader");
-  const body = document.getElementById("tableBody");
-  const tableControls = document.getElementById("tableControls");
-  const paginationEl = document.getElementById("pagination");
-  const searchInput = document.getElementById("searchInput");
-  const pageSizeSelect = document.getElementById("pageSize");
-  const prevBtn = document.getElementById("prevPage");
-  const nextBtn = document.getElementById("nextPage");
-  const pageInfo = document.getElementById("pageInfo");
-
-  // Parser CSV con comillas y multilínea
-  function parsePipeCsvWithQuotes(text, delimiter = "|", quote = '"') {
-    const rows = [];
-    let row = [];
-    let cell = "";
-    let inQuotes = false;
-
-    for (let i = 0; i < text.length; i++) {
-      const ch = text[i];
-      const next = text[i + 1];
-
-      if (ch === quote) {
-        if (inQuotes && next === quote) {
-          cell += quote;
-          i++;
-        } else {
-          inQuotes = !inQuotes;
-        }
-        continue;
-      }
-
-      if (ch === delimiter && !inQuotes) {
-        row.push(cell);
-        cell = "";
-        continue;
-      }
-
-      if ((ch === "\n" || ch === "\r") && !inQuotes) {
-        if (ch === "\r" && next === "\n") i++;
-        row.push(cell);
-        rows.push(row);
-        row = [];
-        cell = "";
-        continue;
-      }
-
-      cell += ch;
-    }
-
-    if (cell.length > 0 || row.length > 0) {
-      row.push(cell);
-      rows.push(row);
-    }
-
-    return rows;
-  }
-
-  // Render cabecera
   function renderHeader(columns) {
     headerRow.innerHTML = "";
     columns.forEach(col => {
@@ -567,13 +373,11 @@ document.getElementById("csvForm").addEventListener("submit", function(e) {
     });
   }
 
-  // Render página de tabla
   function renderTablePage() {
     const pageSize = parseInt(pageSizeSelect.value, 10);
     const start = (currentPage - 1) * pageSize;
     const end = start + pageSize;
     const pageRows = filteredItems.slice(start, end);
-
     body.innerHTML = "";
     for (const item of pageRows) {
       const tr = document.createElement("tr");
@@ -585,11 +389,11 @@ document.getElementById("csvForm").addEventListener("submit", function(e) {
       }
       body.appendChild(tr);
     }
-
     const totalPages = Math.max(1, Math.ceil(filteredItems.length / pageSize));
     prevBtn.disabled = currentPage <= 1;
     nextBtn.disabled = currentPage >= totalPages;
     pageInfo.textContent = `Página ${currentPage} de ${totalPages} — ${filteredItems.length} filas`;
+    document.getElementById("tableContainer").style.display = "block"; // mostrar tabla
   }
 
   // Búsqueda
@@ -622,339 +426,442 @@ document.getElementById("csvForm").addEventListener("submit", function(e) {
     };
   }
 
-  // Reset UI
-  warnings = [];
-  allItems = [];
-  filteredItems = [];
-  currentPage = 1;
-  resultDiv.className = "";
-  resultDiv.textContent = "";
-  headerRow.innerHTML = "";
-  body.innerHTML = "";
-  tableControls.style.display = "none";
-  paginationEl.style.display = "none";
+  csvForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    warnings = [];
+    allItems = [];
+    filteredItems = [];
+    currentPage = 1;
+    resultDiv.className = "";
+    resultDiv.textContent = "";
+    headerRow.innerHTML = "";
+    body.innerHTML = "";
+    tableControls.style.display = "none";
+    paginationEl.style.display = "none";
+    if (!fileInput.files.length) {
+      resultDiv.textContent = "⚠️ Por favor, selecciona un archivo CSV.";
+      resultDiv.classList.add("warning");
+      return;
+    }
+    const option = optionEl.value;
+    const expectedConfig = config[option];
+    if (!expectedConfig) {
+      resultDiv.textContent = "❌ No hay configuración para la opción seleccionada.";
+      resultDiv.classList.add("error");
+      return;
+    }
+    const expectedColumns = expectedConfig.columns;
+    const delimiter = expectedConfig.delimiter || ",";
+    renderHeader(expectedColumns);
 
-  if (!fileInput.files.length) {
-    resultDiv.textContent = "⚠️ Por favor, selecciona un archivo CSV.";
-    resultDiv.classList.add("warning");
-    return;
-  }
-
-      const expectedConfig = config[option];
-      if (!expectedConfig) {
-        resultDiv.textContent = "❌ No hay configuración para la opción seleccionada.";
-        resultDiv.classList.add("error");
-        return;
-      }
-
-      const expectedColumns = expectedConfig.columns;
-      const delimiter = expectedConfig.delimiter || ",";
-
-      renderHeader(expectedColumns);
-
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        const decoder = new TextDecoder("windows-1252");
-        const text = decoder.decode(event.target.result);
-
-        const rows = parsePipeCsvWithQuotes(text, delimiter, '"')
-          .map(r => r.map(c => c.trim()));
-
-        const nonEmptyRows = rows.filter(r => r.some(c => c.length > 0));
-
-        let globalValid = true;
-        let errorRow = null;
-        let errorMsg = "";
-
-        for (let i = 0; i < nonEmptyRows.length; i++) {
-          const cells = nonEmptyRows[i];
-          let rowValid = true;
-          let trWarnings = [];
-
-          // Estructura: número de columnas
-          if (cells.length !== expectedColumns.length) {
-            rowValid = false;
-            errorMsg = `Fila ${i+1}: tiene ${cells.length} columnas, se esperaban ${expectedColumns.length}.`;
-          } else {
-            // Validación por columna
-            for (let colIndex = 0; colIndex < expectedColumns.length; colIndex++) {
-              const col = expectedColumns[colIndex];
-              const value = cells[colIndex];
-
-              // Números (permitir vacío si no requerido)
-              if (col.type === "number") {
-                const v = value.trim();
-                if (v !== "") {
-                  const normalized = v.replace(',', '.');
-                  if (isNaN(Number(normalized))) {
-                    rowValid = false;
-                    errorMsg = `Fila ${i+1}: columna ${col.name} debe ser número.`;
-                    break;
-                  }
-                } else {
-                  // si está vacío y no es required, no pasa nada
-                  if (col.required) {
-                    trWarnings.push(col.name);
-                    warnings.push({ row: i+1, col: col.name });
-                  }
+    const file = fileInput.files[0];
+    readFileAsArrayBufferPromise(file).then(buffer => {
+      const decoder = new TextDecoder("windows-1252");
+      const text = decoder.decode(buffer);
+      const rows = parsePipeCsvWithQuotes(text, delimiter, '"');
+      const nonEmptyRows = rows.filter(r => r.some(c => c.length > 0));
+      let globalValid = true;
+      let errorRow = null;
+      let errorMsg = "";
+      for (let i = 0; i < nonEmptyRows.length; i++) {
+        const cells = nonEmptyRows[i];
+        let rowValid = true;
+        let trWarnings = [];
+        if (cells.length !== expectedColumns.length) {
+          rowValid = false;
+          errorMsg = `Fila ${i+1}: tiene ${cells.length} columnas, se esperaban ${expectedColumns.length}.`;
+        } else {
+          for (let colIndex = 0; colIndex < expectedColumns.length; colIndex++) {
+            const col = expectedColumns[colIndex];
+            const value = (cells[colIndex] || "").trim();
+            if (col.type === "number") {
+              if (value !== "") {
+                const normalized = value.replace(',', '.');
+                if (isNaN(Number(normalized))) {
+                  rowValid = false;
+                  errorMsg = `Fila ${i+1}: columna ${col.name} debe ser número.`;
+                  break;
                 }
-              }
-
-
-              // Fechas (soporta dd/mm/yyyy e ISO)
-              if (col.type === "date") {
-                const v = value.trim();
-                if (v !== "") {
-                  const match = v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-                  if (match) {
-                    const day = parseInt(match[1], 10);
-                    const month = parseInt(match[2], 10) - 1;
-                    const year = parseInt(match[3], 10);
-                    const d = new Date(year, month, day);
-                    if (d.getFullYear() !== year || d.getMonth() !== month || d.getDate() !== day) {
-                      rowValid = false;
-                      errorMsg = `Fila ${i+1}: columna ${col.name} no es fecha válida (dd/mm/yyyy).`;
-                      break;
-                    }
-                  } else if (isNaN(Date.parse(v))) {
-                    rowValid = false;
-                    errorMsg = `Fila ${i+1}: columna ${col.name} no es fecha válida.`;
-                    break;
-                  }
-                } else if (col.required) {
-                  trWarnings.push(col.name);
-                  warnings.push({ row: i+1, col: col.name });
-                }
-              }
-
-              // Email
-              if (col.type === "email" && value !== "" && !value.includes("@")) {
-                rowValid = false;
-                errorMsg = `Fila ${i+1}: columna ${col.name} no es email válido.`;
-                break;
-              }
-
-              // Longitud máxima
-              if (col.maxLength && value.length > col.maxLength) {
-                rowValid = false;
-                errorMsg = `Fila ${i+1}: columna ${col.name} supera ${col.maxLength} caracteres.`;
-                break;
-              }
-
-              // Required vacío (warning)
-              if (col.required && value === "") {
+              } else if (col.required) {
                 trWarnings.push(col.name);
                 warnings.push({ row: i+1, col: col.name });
               }
             }
-          }
+            if (col.type === "date") {
+              const v = value;
+              if (v !== "") {
+                const match = v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                if (match) {
+                  const day = parseInt(match[1], 10);
+                  const month = parseInt(match[2], 10) - 1;
+                  const year = parseInt(match[3], 10);
+                  const d = new Date(year, month, day);
+                  if (d.getFullYear() !== year || d.getMonth() !== month || d.getDate() !== day) {
+                    rowValid = false;
+                    errorMsg = `Fila ${i+1}: columna ${col.name} no es fecha válida (dd/mm/yyyy).`;
+                    break;
+                  }
+                } else if (isNaN(Date.parse(v))) {
+                  rowValid = false;
+                  errorMsg = `Fila ${i+1}: columna ${col.name} no es fecha válida.`;
+                  break;
+                }
+              } else if (col.required) {
+                trWarnings.push(col.name);
+                warnings.push({ row: i+1, col: col.name });
+              }
+            }
 
-          if (!rowValid) {
-            globalValid = false;
-            errorRow = cells.slice();
-            break;
-          } else {
-            allItems.push({ cells, hasWarning: trWarnings.length > 0 });
+              // Email
+            if (col.type === "email" && value !== "" && !value.includes("@")) {
+              rowValid = false;
+              errorMsg = `Fila ${i+1}: columna ${col.name} no es email válido.`;
+              break;
+            }
+
+              // Longitud máxima
+            if (col.maxLength && value.length > col.maxLength) {
+              rowValid = false;
+              errorMsg = `Fila ${i+1}: columna ${col.name} supera ${col.maxLength} caracteres.`;
+              break;
+            }
+
+              // Required vacío (warning)
+            if (col.required && value === "") {
+              trWarnings.push(col.name);
+              warnings.push({ row: i+1, col: col.name });
+            }
           }
         }
+        if (!rowValid) {
+          globalValid = false;
+          errorRow = cells.slice();
+          break;
+        } else {
+          allItems.push({ cells, hasWarning: trWarnings.length > 0 });
+        }
+      }
 
         // Pinta resultado y tabla
-        if (globalValid) {
-          resultDiv.textContent = "✅ CSV válido para la opción " + option;
-          resultDiv.className = "success";
+      if (globalValid) {
+        resultDiv.textContent = "✅ CSV válido para la opción " + option;
+        resultDiv.className = "success";
+        setupPagination();
+        filteredItems = allItems.slice();
+        currentPage = 1;
+        renderTablePage();
+        if (exportBtn) {
+          exportBtn.style.display = "inline-block";
+          exportBtn.onclick = function() {
+            // generar SQL sencillo basado en expectedColumns
+            const items = allItems.map(it => ({ cells: it.cells }));
+            const sql = generateSQLForValidation(items, option);
+            downloadText('datos.sql', sql, 'text/sql');
+          };
+        }
+      } else {
+        resultDiv.textContent = "❌ El CSV contiene errores.";
+        resultDiv.className = "error";
+        body.innerHTML = "";
+        const tr = document.createElement("tr");
+        tr.classList.add("error");
+        for (const cell of errorRow) {
+          const td = document.createElement("td");
+          td.textContent = cell;
+          tr.appendChild(td);
+        }
+        body.appendChild(tr);
+        const msgRow = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = expectedColumns.length;
+        td.innerHTML = `<span class="error-msg">${errorMsg}</span>`;
+        msgRow.appendChild(td);
+        body.appendChild(msgRow);
+        tableControls.style.display = "none";
+        paginationEl.style.display = "none";
+        if (exportBtn) exportBtn.style.display = "none";
+        tableContainer.style.display = "block"; // mostrar tabla con error
+      }
 
-          setupPagination();
-          filteredItems = allItems.slice();
+      if (warnings.length > 0) {
+        const msg = document.createElement("div");
+        msg.className = "warning-msg";
+        msg.textContent = `⚠️ Se han detectado ${warnings.length} warnings en campos obligatorios vacíos.`;
+        const switchContainer = document.createElement("div");
+        switchContainer.className = "warning-switch";
+        switchContainer.innerHTML = `
+          <label class="switch">
+            <input type="checkbox" id="toggleWarningsSwitch">
+            <span class="slider"></span>
+          </label>
+          <span class="label-text">Ver solo warnings</span>
+        `;
+        msg.appendChild(switchContainer);
+        resultDiv.appendChild(msg);
+        const toggle = document.getElementById("toggleWarningsSwitch");
+        toggle.addEventListener("change", () => {
+          const active = toggle.checked;
+          filteredItems = active ? allItems.filter(item => item.hasWarning) : allItems.slice();
           currentPage = 1;
           renderTablePage();
+       
+        });
+      }
+    }).catch(err => {
+      resultDiv.textContent = "❌ Error leyendo el archivo: " + err;
+      resultDiv.className = "error";
+    });
+  });
 
-  // Mostrar botón de exportar SQL
-          const exportBtn = document.getElementById("exportSQL");
-          if (exportBtn) {
-            exportBtn.style.display = "inline-block";
-            exportBtn.onclick = function() {
-              const sql = generateSQL(allItems, option);
-              downloadSQL(sql);
-            };
-          }
+  function generateSQLForValidation(items, option, batchSize = 100) {
+    const expectedColumns = config[option].columns.map(c => c.name);
+    let sql = "";
+    for (let i = 0; i < items.length; i += batchSize) {
+      const batch = items.slice(i, i + batchSize);
+      sql += `INSERT INTO ${option.toLowerCase()} (${expectedColumns.join(", ")}) VALUES\n`;
+      sql += batch.map(item => "(" + item.cells.map(v => {
+        const safe = (v || "").replace(/'/g, "''");
+        return isNaN(v) || v === "" ? `'${safe}'` : safe;
+      }).join(", ") + ")").join(",\n");
+      sql += ";\n\n";
+    }
+    return sql;
+  }
+
+})();
+
+(function setupCompare() {
+  const optionCompareEl = document.getElementById('optionCompare');
+  const fileOldEl = document.getElementById('fileOld');
+  const fileNewEl = document.getElementById('fileNew');
+  const compareBtn = document.getElementById('compareBtn');
+  const compareSummary = document.getElementById('compareSummary');
+  const addedBlock = document.getElementById('addedBlock');
+  const deletedBlock = document.getElementById('deletedBlock');
+  const modifiedBlock = document.getElementById('modifiedBlock');
+  const addedTable = document.getElementById('addedTable');
+  const deletedTable = document.getElementById('deletedTable');
+  const modifiedTable = document.getElementById('modifiedTable');
+  const exportAdded = document.getElementById('exportAdded');
+  const exportDeleted = document.getElementById('exportDeleted');
+  const exportModified = document.getElementById('exportModified');
+
+  function renderObjectTable(tableEl, headers, rows) {
+    const thead = tableEl.querySelector('thead');
+    const tbody = tableEl.querySelector('tbody');
+    thead.innerHTML = "";
+    tbody.innerHTML = "";
+    const trh = document.createElement('tr');
+    headers.forEach(h => {
+      const th = document.createElement('th'); th.textContent = h; trh.appendChild(th);
+    });
+    thead.appendChild(trh);
+    for (const r of rows) {
+      const tr = document.createElement('tr');
+      headers.forEach(h => {
+        const td = document.createElement('td');
+        td.textContent = r[h] ?? "";
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    }
+  }
+
+  async function readCsvFileToObjects(file, optionKey) {
+    const cfg = config[optionKey];
+    const delim = (cfg && cfg.delimiter) ? cfg.delimiter : ",";
+    const buf = await readFileAsArrayBufferPromise(file);
+    const decoder = new TextDecoder("windows-1252");
+    const text = decoder.decode(buf);
+    const rows = parsePipeCsvWithQuotes(text, delim, '"');
+    const nonEmpty = rows.filter(r => r.some(c => c.length > 0));
+    const expectedColumns = cfg ? cfg.columns : null;
+    if (!expectedColumns) throw new Error("No hay configuración para opción: " + optionKey);
+    const objects = nonEmpty.map(r => arrayRowToObject(r, expectedColumns));
+    return { objects, expectedColumns: expectedColumns.map(c => c.name) };
+  }
+
+  function makeKeyForObj(obj, keyCols, ignoreWhitespace = true) {
+    const parts = keyCols.map(k => {
+      let v = (obj[k] === undefined || obj[k] === null) ? "" : String(obj[k]);
+      return ignoreWhitespace ? v.replace(/\s+/g, " ").trim() : v;
+    });
+    return parts.join("||");
+  }
+
+  function objectsEqual(a, b, ignoreWhitespace = true) {
+    // shallow compare all keys present in a or b
+    const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+    for (const k of keys) {
+      let va = a[k] === undefined ? "" : String(a[k]);
+      let vb = b[k] === undefined ? "" : String(b[k]);
+      if (ignoreWhitespace) { va = va.replace(/\s+/g, " ").trim(); vb = vb.replace(/\s+/g, " ").trim(); }
+      if (va !== vb) return false;
+    }
+    return true;
+  }
+
+  compareBtn.addEventListener('click', async () => {
+    // reset UI
+    compareSummary.textContent = "";
+    addedBlock.style.display = deletedBlock.style.display = modifiedBlock.style.display = "none";
+    if (!optionCompareEl.value) {
+      compareSummary.textContent = "⚠️ Selecciona un tipo de archivo.";
+      compareSummary.className = "warning";
+      return;
+    }
+    if (!fileOldEl.files.length || !fileNewEl.files.length) {
+      compareSummary.textContent = "⚠️ Selecciona ambos ficheros (anterior y actual).";
+      compareSummary.className = "warning";
+      return;
+    }
+    const optionKey = optionCompareEl.value;
+    const keyCols = keyColumnsMap[optionKey];
+    if (!keyCols || !keyCols.length) {
+      compareSummary.textContent = "❌ No hay clave(s) primaria(s) configurada(s) para este tipo.";
+      compareSummary.className = "error";
+      return;
+    }
+    compareSummary.textContent = "⏳ Leyendo ficheros...";
+    compareSummary.className = "";
+
+    try {
+      const [oldRes, newRes] = await Promise.all([
+        readCsvFileToObjects(fileOldEl.files[0], optionKey),
+        readCsvFileToObjects(fileNewEl.files[0], optionKey)
+      ]);
+      const oldObjs = oldRes.objects;
+      const newObjs = newRes.objects;
+      const headers = oldRes.expectedColumns; // usar columnas esperadas
+
+      const ignoreWhitespace = document.getElementById('ignoreWhitespace').checked;
+      const includeModified = document.getElementById('includeModified').checked;
+
+      const mapOld = new Map();
+      const mapNew = new Map();
+
+      for (const o of oldObjs) mapOld.set(makeKeyForObj(o, keyCols, ignoreWhitespace), o);
+      for (const n of newObjs) mapNew.set(makeKeyForObj(n, keyCols, ignoreWhitespace), n);
+
+      const added = [];
+      const deleted = [];
+      const modified = [];
+
+      // check deleted and modified
+      for (const [k, o] of mapOld.entries()) {
+        if (!mapNew.has(k)) {
+          deleted.push(o);
         } else {
-          resultDiv.textContent = "❌ El CSV contiene errores.";
-          resultDiv.className = "error";
-
-          body.innerHTML = "";
-          const tr = document.createElement("tr");
-          tr.classList.add("error");
-          for (const cell of errorRow) {
-            const td = document.createElement("td");
-            td.textContent = cell;
-            tr.appendChild(td);
+          const n = mapNew.get(k);
+          if (!objectsEqual(o, n, ignoreWhitespace)) {
+            modified.push({ before: o, after: n });
           }
-          body.appendChild(tr);
-
-          const msgRow = document.createElement("tr");
-          const td = document.createElement("td");
-          td.colSpan = expectedColumns.length;
-          td.innerHTML = `<span class="error-msg">${errorMsg}</span>`;
-          msgRow.appendChild(td);
-          body.appendChild(msgRow);
-
-          tableControls.style.display = "none";
-          paginationEl.style.display = "none";
-
-          // Ocultar botón de exportar si hay error
-          const exportBtn = document.getElementById("exportSQL");
-          if (exportBtn) exportBtn.style.display = "none";
         }
+      }
+      // check added
+      for (const [k, n] of mapNew.entries()) {
+        if (!mapOld.has(k)) {
+          added.push(n);
+        }
+      }
 
+      // Mostrar resumen
+      compareSummary.textContent = `Resultados: ${added.length} añadidos — ${deleted.length} eliminados — ${modified.length} modificados.`;
+      compareSummary.className = "success";
 
-          // Mostrar contador de warnings SIEMPRE (válido o con error)
+      // Render tablas
+      if (added.length > 0) {
+        addedBlock.style.display = "block";
+        renderObjectTable(addedTable, headers, added);
+      } else addedBlock.style.display = "none";
 
-    if (warnings.length > 0) {
-  const msg = document.createElement("div");
-  msg.className = "warning-msg";
-  msg.textContent = `⚠️ Se han detectado ${warnings.length} warnings en campos obligatorios vacíos.`;
+      if (deleted.length > 0) {
+        deletedBlock.style.display = "block";
+        renderObjectTable(deletedTable, headers, deleted);
+      } else deletedBlock.style.display = "none";
 
-  const switchContainer = document.createElement("div");
-  switchContainer.className = "warning-switch";
+      if (includeModified && modified.length > 0) {
+        modifiedBlock.style.display = "block";
+        // Para modificados, mostramos columnas clave + diferencia: concat old->new en columnas
+        const modHeaders = headers.slice();
+        const modRows = modified.map(m => {
+          const row = {};
+          for (const h of modHeaders) {
+            const beforeVal = m.before[h] ?? "";
+            const afterVal = m.after[h] ?? "";
+            row[h] = (String(beforeVal) === String(afterVal)) ? beforeVal : `${beforeVal} → ${afterVal}`;
+          }
+          return row;
+        });
+        renderObjectTable(modifiedTable, modHeaders, modRows);
+      } else modifiedBlock.style.display = "none";
 
-  switchContainer.innerHTML = `
-    <label class="switch">
-      <input type="checkbox" id="toggleWarningsSwitch">
-      <span class="slider"></span>
-    </label>
-    <span class="label-text">Ver solo warnings</span>
-  `;
+      // Asociar exportaciones
+      exportAdded.onclick = () => {
+        if (added.length === 0) return alert("No hay registros añadidos para exportar.");
+        const csv = toCSV(added, headers);
+        downloadText('añadidos.csv', csv, 'text/csv');
+      };
+      exportDeleted.onclick = () => {
+        if (deleted.length === 0) return alert("No hay registros eliminados para exportar.");
+        const csv = toCSV(deleted, headers);
+        downloadText('eliminados.csv', csv, 'text/csv');
+      };
+      exportModified.onclick = () => {
+        if (modified.length === 0) return alert("No hay registros modificados para exportar.");
+        // exportar "before" y "after" en columnas separadas: header_before, header_after
+        const beforeHeader = headers.map(h => h + "_before");
+        const afterHeader = headers.map(h => h + "_after");
+        const csvHeaders = [...beforeHeader, ...afterHeader];
+        const rows = modified.map(m => {
+          const row = {};
+          headers.forEach(h => { row[h + "_before"] = m.before[h] ?? ""; row[h + "_after"] = m.after[h] ?? ""; });
+          return row;
+        });
+        const esc = v => {
+          if (v === null || v === undefined) return '';
+          const s = String(v);
+          if (s.includes('"') || s.includes(',') || s.includes('\n')) {
+            return '"' + s.replace(/"/g, '""') + '"';
+          }
+          return s;
+        };
+        const head = csvHeaders.join(",");
+        const body = rows.map(r => csvHeaders.map(h => esc(r[h] ?? "")).join(",")).join("\n");
+        downloadText('modificados.csv', head + "\n" + body, 'text/csv');
+      };
 
-  msg.appendChild(switchContainer);
-  resultDiv.appendChild(msg);
-
-  const toggle = document.getElementById("toggleWarningsSwitch");
-
-  toggle.addEventListener("change", () => {
-    const active = toggle.checked;
-    filteredItems = active
-      ? allItems.filter(item => item.hasWarning)
-      : allItems.slice();
-    currentPage = 1;
-    renderTablePage();
+    } catch (err) {
+      compareSummary.textContent = "❌ Error leyendo/parseando ficheros: " + err.message;
+      compareSummary.className = "error";
+    }
   });
+
+})();
+
+const container = document.getElementById('tableContainer');
+if (container) {
+  let isDragging = false, startX = 0, scrollStart = 0, rafId = null;
+  container.addEventListener('mousedown', (e) => { isDragging = true; container.classList.add('dragging'); startX = e.pageX - container.offsetLeft; scrollStart = container.scrollLeft; });
+  container.addEventListener('mouseup', () => { isDragging = false; container.classList.remove('dragging'); cancelAnimationFrame(rafId); });
+  container.addEventListener('mouseleave', () => { isDragging = false; container.classList.remove('dragging'); cancelAnimationFrame(rafId); });
+  container.addEventListener('mousemove', (e) => { if (!isDragging) return; e.preventDefault(); const x = e.pageX - container.offsetLeft; const walk = (x - startX) * 1.5; cancelAnimationFrame(rafId); rafId = requestAnimationFrame(() => { container.scrollLeft = scrollStart - walk; }); });
+  // táctil
+  let touchStartX = 0, touchScrollStart = 0;
+  container.addEventListener('touchstart', (e) => { container.classList.add('dragging'); touchStartX = e.touches[0].pageX; touchScrollStart = container.scrollLeft; }, { passive:true });
+  container.addEventListener('touchmove', (e) => { e.preventDefault(); const touchX = e.touches[0].pageX; const walk = (touchX - touchStartX) * 1.5; cancelAnimationFrame(rafId); rafId = requestAnimationFrame(() => { container.scrollLeft = touchScrollStart - walk; }); }, { passive:false });
+  container.addEventListener('touchend', () => { container.classList.remove('dragging'); cancelAnimationFrame(rafId); });
 }
-          container.classList.add('active');
-
-    };
-     
-
-      reader.readAsArrayBuffer(file);
-    })
-    
-</script>
-
-
-<script>
-  $(document).ready(function() {
-    $('#option').select2({
-      placeholder: "-- Selecciona tipo de archivo --",
-      allowClear: true,
-      width: '100%',
-      dropdownCssClass: 'select2-custom',
-      selectionCssClass: 'select2-custom'
-    });
-  });
-</script>
-
-
-
-<script>
-  const container = document.getElementById('tableContainer');
-
-  let isDragging = false;
-  let startX = 0;
-  let scrollStart = 0;
-  let rafId = null;
-
-  // --- Drag con ratón ---
-  container.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    container.classList.add('dragging');
-    startX = e.pageX - container.offsetLeft;
-    scrollStart = container.scrollLeft;
-  });
-
-  container.addEventListener('mouseup', () => {
-    isDragging = false;
-    container.classList.remove('dragging');
-    cancelAnimationFrame(rafId);
-  });
-
-  container.addEventListener('mouseleave', () => {
-    isDragging = false;
-    container.classList.remove('dragging');
-    cancelAnimationFrame(rafId);
-  });
-
-  container.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - container.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(() => {
-      container.scrollLeft = scrollStart - walk;
-    });
-  });
-
-  // --- Drag con táctil ---
-  let touchStartX = 0;
-  let touchScrollStart = 0;
-
-  container.addEventListener('touchstart', (e) => {
-    container.classList.add('dragging');
-    touchStartX = e.touches[0].pageX;
-    touchScrollStart = container.scrollLeft;
-  }, { passive: true });
-
-  container.addEventListener('touchmove', (e) => {
-    e.preventDefault(); // evita scroll vertical
-    const touchX = e.touches[0].pageX;
-    const walk = (touchX - touchStartX) * 1.5;
-    cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(() => {
-      container.scrollLeft = touchScrollStart - walk;
-    });
-  }, { passive: false });
-
-  container.addEventListener('touchend', () => {
-    container.classList.remove('dragging');
-    cancelAnimationFrame(rafId);
-  });
-
 
 const btn = document.getElementById("themeToggle");
 const body = document.body;
-
-if (localStorage.getItem("theme") === "dark") {
-  body.classList.add("theme-dark");
-  btn.setAttribute("aria-pressed", "true");
-} else {
-  btn.setAttribute("aria-pressed", "false");
-}
-
+if (localStorage.getItem("theme") === "dark") { body.classList.add("theme-dark"); btn.setAttribute("aria-pressed", "true"); } else { btn.setAttribute("aria-pressed", "false"); }
 btn.addEventListener("click", () => {
   const isDark = body.classList.toggle("theme-dark");
   localStorage.setItem("theme", isDark ? "dark" : "light");
   btn.setAttribute("aria-pressed", isDark ? "true" : "false");
 });
-
-
-
-
-
 </script>
-
-
-
-
 
 </body>
 </html>
