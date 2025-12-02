@@ -90,11 +90,14 @@
           <div id="filterControls"></div>
           <div class="table-controls" id="tableControls" style="display:none;">
             <label id="label_search">Buscar:<input type="text" id="searchInput" placeholder="Filtrar filas..." /></label>
-            <label id="label_pageSize">Filas por página:<select id="pageSize"><option>10</option><option>25</option><option>50</option><option>100</option></select></label>
+            <label id="label_pageSize">Filas por página:<select id="pageSize"><option>5</option><option>10</option><option>25</option><option>50</option><option>100</option></select></label>
           </div>
           <div id="tableContainer">
             <table id="csvTable">
-              <thead><tr id="tableHeader"></tr></thead>
+              <thead>
+                <tr id="tableHeader"></tr>   <!-- nombres de columnas -->
+                <tr id="filterRow"></tr>     <!-- filtros por columna -->
+              </thead>
               <tbody id="tableBody"></tbody>
             </table>
             <div class="pagination" id="pagination" style="display:none;">
@@ -364,21 +367,85 @@ $(document).ready(function() {
   paginationEl.style.display = "none";
   document.getElementById("tableContainer").style.display = "none"; // ocultar siempre al inicio
 
-  function renderHeader(columns) {
-    headerRow.innerHTML = "";
-    columns.forEach(col => {
-      const th = document.createElement("th");
-      th.textContent = col.name;
-      headerRow.appendChild(th);
-    });
-  }
 
-  function renderTablePage() {
-    const pageSize = parseInt(pageSizeSelect.value, 10);
-    const start = (currentPage - 1) * pageSize;
-    const end = start + pageSize;
-    const pageRows = filteredItems.slice(start, end);
-    body.innerHTML = "";
+  let columnFilters = {};
+
+function renderHeader(columns) {
+  const headerRow = document.getElementById("tableHeader");
+  const filterRow = document.getElementById("filterRow");
+  headerRow.innerHTML = "";
+  filterRow.innerHTML = "";
+
+  columns.forEach((col, idx) => {
+    // Título
+    const thTitle = document.createElement("th");
+    thTitle.textContent = col.name;
+    headerRow.appendChild(thTitle);
+
+    // Filtro
+    const thFilter = document.createElement("th");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Filtrar...";
+    input.value = columnFilters[idx] || "";
+    input.addEventListener("input", () => applyColumnFilter(idx, input.value));
+    thFilter.appendChild(input);
+    filterRow.appendChild(thFilter);
+  });
+}
+
+function applyColumnFilter(colIndex, rawValue) {
+  const value = (rawValue || "").toLowerCase();
+  columnFilters[colIndex] = value;
+
+  filteredItems = allItems.filter(item =>
+    item.cells.every((cell, idx) => {
+      const f = columnFilters[idx];
+      if (!f) return true; // sin filtro en esa columna
+
+      const cellVal = (cell || "").toLowerCase();
+
+      // caso especial: si el filtro es "vacío" o "empty"
+      if (f === "vacío" || f === "empty") {
+        return cellVal === "";
+      }
+
+      return cellVal.includes(f);
+    })
+  );
+
+  currentPage = 1;
+  renderTablePage();
+  document.getElementById("tableContainer").style.display =
+    filteredItems.length > 0 ? "block" : "none";
+}
+
+
+
+ function renderTablePage() {
+  const pageSize = parseInt(pageSizeSelect.value, 10);
+  const start = (currentPage - 1) * pageSize;
+  const end = start + pageSize;
+  const pageRows = filteredItems.slice(start, end);
+
+  body.innerHTML = "";
+
+  if (pageRows.length === 0) {
+    // Mostrar mensaje de "sin resultados"
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = expectedColumns.length; // ocupa todas las columnas
+    td.textContent = "⚠️ No se encontraron resultados con los filtros aplicados.";
+    td.className = "no-results";
+    tr.appendChild(td);
+    body.appendChild(tr);
+
+    // desactivar paginación
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    pageInfo.textContent = `Página 0 de 0 — 0 filas`;
+  } else {
+    // Pintar filas normales
     for (const item of pageRows) {
       const tr = document.createElement("tr");
       if (item.hasWarning) tr.classList.add("warning");
@@ -389,12 +456,17 @@ $(document).ready(function() {
       }
       body.appendChild(tr);
     }
+
     const totalPages = Math.max(1, Math.ceil(filteredItems.length / pageSize));
     prevBtn.disabled = currentPage <= 1;
     nextBtn.disabled = currentPage >= totalPages;
     pageInfo.textContent = `Página ${currentPage} de ${totalPages} — ${filteredItems.length} filas`;
-    document.getElementById("tableContainer").style.display = "block"; // mostrar tabla
   }
+
+  // mantener siempre visible el contenedor
+  document.getElementById("tableContainer").style.display = "block";
+}
+
 
   // Búsqueda
   function applySearch() {
