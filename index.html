@@ -369,7 +369,7 @@ $(document).ready(function() {
 
 
   let columnFilters = {};
-
+  
 function renderHeader(columns) {
   const headerRow = document.getElementById("tableHeader");
   const filterRow = document.getElementById("filterRow");
@@ -388,11 +388,23 @@ function renderHeader(columns) {
     input.type = "text";
     input.placeholder = "Filtrar...";
     input.value = columnFilters[idx] || "";
-    input.addEventListener("input", () => applyColumnFilter(idx, input.value));
+
+    input.addEventListener("input", () => {
+      applyColumnFilter(idx, input.value);
+      // marcar como editado si hay texto
+      if (input.value.trim() !== "") {
+        input.classList.add("edited-filter");
+      } else {
+        input.classList.remove("edited-filter");
+      }
+    });
+
     thFilter.appendChild(input);
     filterRow.appendChild(thFilter);
   });
 }
+
+
 
 function applyColumnFilter(colIndex, rawValue) {
   const value = (rawValue || "").toLowerCase();

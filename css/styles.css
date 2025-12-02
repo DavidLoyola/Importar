@@ -827,3 +827,7 @@ input:checked + .slider::before {
 .compare-controls { display:flex; gap:8px; align-items:center; margin:8px 0; flex-wrap:wrap; }
 .export-container { margin-top:8px; }
 
+#csvTable thead tr#filterRow th input.edited-filter {
+  background-color: #fffe3e;   /* amarillo suave */
+  border-color: #fff;
+}
