@@ -23,7 +23,7 @@
             <div class="autor">Creado por <strong>David Cambronero Martínez</strong></div>
             <button id="themeToggle" class="theme-toggle-btn" aria-label="Cambiar tema" aria-pressed="false">
                 <!-- íconos -->
-                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8a4 4 0 1 1 -3.995 4.2l-.005 -.2l.005 -.2a4 4 0 0 1 3.995 -3.8z" /><path d="M12 4a1 1 0 0 1 .993 .883l.007 .127a1 1 0 0 1 -1.993 .117l-.007 -.127a1 1 0 0 1 1 -1z" /></svg>
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-sun"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 19a1 1 0 0 1 .993 .883l.007 .117v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-1a1 1 0 0 1 1 -1z" /><path d="M18.313 16.91l.094 .083l.7 .7a1 1 0 0 1 -1.32 1.497l-.094 -.083l-.7 -.7a1 1 0 0 1 1.218 -1.567l.102 .07z" /><path d="M7.007 16.993a1 1 0 0 1 .083 1.32l-.083 .094l-.7 .7a1 1 0 0 1 -1.497 -1.32l.083 -.094l.7 -.7a1 1 0 0 1 1.414 0z" /><path d="M4 11a1 1 0 0 1 .117 1.993l-.117 .007h-1a1 1 0 0 1 -.117 -1.993l.117 -.007h1z" /><path d="M21 11a1 1 0 0 1 .117 1.993l-.117 .007h-1a1 1 0 0 1 -.117 -1.993l.117 -.007h1z" /><path d="M6.213 4.81l.094 .083l.7 .7a1 1 0 0 1 -1.32 1.497l-.094 -.083l-.7 -.7a1 1 0 0 1 1.217 -1.567l.102 .07z" /><path d="M19.107 4.893a1 1 0 0 1 .083 1.32l-.083 .094l-.7 .7a1 1 0 0 1 -1.497 -1.32l.083 -.094l.7 -.7a1 1 0 0 1 1.414 0z" /><path d="M12 2a1 1 0 0 1 .993 .883l.007 .117v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-1a1 1 0 0 1 1 -1z" /><path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" /></svg>
                 <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z" /></svg>
             </button>
         </div>
@@ -32,11 +32,11 @@
     <main>
       <!-- Pestañas -->
       <div class="tabs" role="tablist" aria-label="Tabs">
-        <div class="tab active" data-target="tab-validate" role="tab" aria-selected="true">Verificar fichero</div>
+        <div class="tab active" data-target="tab-validate" role="tab" aria-selected="true">Validar fichero</div>
         <div class="tab" data-target="tab-compare" role="tab" aria-selected="false">Comparar ficheros</div>
       </div>
       
-      <!-- TAB 1: Verificar fichero -->
+      <!-- TAB 1: Validar fichero -->
       <section id="tab-validate" class="section active" aria-hidden="false">
         <section class="csv-section">
           <div class="csv-form">
@@ -75,7 +75,7 @@
           </div>
         </section>
 
-        <!-- Resultados Verificar -->
+        <!-- Resultados Validar -->
         <section class="result-section">
           <div id="result"></div>
           <div class="export-container">
@@ -212,7 +212,7 @@ const config = {
 
 const keyColumnsMap = {
   "01-PERSONAL": ["id"],
-  "02-PERSONAL-UNIDAD": ["id"],
+  "02-PERSONAL-UNIDAD": ["codigounidad","id"],
   "03-PERSONAL-CV": ["dni"],
   "04-PUBLICACIONES": ["id"],
   "05-CONGRESOS": ["id"],
@@ -730,7 +730,7 @@ function applyColumnFilter(colIndex, rawValue) {
   const exportDeleted = document.getElementById('exportDeleted');
   const exportModified = document.getElementById('exportModified');
 
-  function renderObjectTable(tableEl, headers, rows) {
+  function renderObjectTable(tableEl, headers, rows, rowClass = '') {
     const thead = tableEl.querySelector('thead');
     const tbody = tableEl.querySelector('tbody');
     thead.innerHTML = "";
@@ -742,12 +742,15 @@ function applyColumnFilter(colIndex, rawValue) {
     thead.appendChild(trh);
     for (const r of rows) {
       const tr = document.createElement('tr');
+      if (rowClass) tr.classList.add(rowClass);
       headers.forEach(h => {
         const td = document.createElement('td');
-        td.textContent = r[h] ?? "";
+        const text = r[h] ?? "";
+        td.textContent = text;
+        if (String(text).includes('→')) td.classList.add('cell-modified-value');
         tr.appendChild(td);
       });
-      tbody.appendChild(tr);
+        tbody.appendChild(tr);
     }
   }
 
@@ -856,12 +859,12 @@ function applyColumnFilter(colIndex, rawValue) {
       // Render tablas
       if (added.length > 0) {
         addedBlock.style.display = "block";
-        renderObjectTable(addedTable, headers, added);
+        renderObjectTable(addedTable, headers, added, 'row-added');
       } else addedBlock.style.display = "none";
 
       if (deleted.length > 0) {
         deletedBlock.style.display = "block";
-        renderObjectTable(deletedTable, headers, deleted);
+        renderObjectTable(deletedTable, headers, deleted, 'row-deleted');
       } else deletedBlock.style.display = "none";
 
       if (includeModified && modified.length > 0) {
@@ -877,7 +880,7 @@ function applyColumnFilter(colIndex, rawValue) {
           }
           return row;
         });
-        renderObjectTable(modifiedTable, modHeaders, modRows);
+        renderObjectTable(modifiedTable, modHeaders, modRows, 'row-modified');
       } else modifiedBlock.style.display = "none";
 
       // Asociar exportaciones

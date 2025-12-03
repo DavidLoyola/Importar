@@ -827,6 +827,31 @@ input:checked + .slider::before {
 .compare-controls { display:flex; gap:8px; align-items:center; margin:8px 0; flex-wrap:wrap; }
 .export-container { margin-top:8px; }
 
+/* Estilos por tabla de comparación */
+#addedTable thead { background-color: #e8f6ef; color: #1b5e20; }
+#addedTable .row-added td { background-color: #f7fff5; color: #0b3b10; }
+
+#deletedTable thead { background-color: #ffecec; color: #b00020; }
+#deletedTable .row-deleted td { background-color: #fff5f5; color: #6a0000; }
+
+#modifiedTable thead { background-color: #fff4e5; color: #9a7300; }
+#modifiedTable .row-modified td { background-color: #fff9f0; color: #8d5b00; }
+
+/* Color lateral y pequeño borde para mejorar contraste */
+.results-block#addedBlock { border-left: 6px solid #2e7d32; }
+.results-block#deletedBlock { border-left: 6px solid #c62828; }
+.results-block#modifiedBlock { border-left: 6px solid #ff9800; }
+
+/* Tema oscuro */
+body.theme-dark #addedTable thead { background-color: #1e3b23; color: #b6f0c6; }
+body.theme-dark #addedTable .row-added td { background-color: rgba(46,125,50,0.08); color: #dfffe4; }
+body.theme-dark #deletedTable thead { background-color: #3b1212; color: #ffb4b4; }
+body.theme-dark #deletedTable .row-deleted td { background-color: rgba(198,40,40,0.08); color: #ffdede; }
+body.theme-dark #modifiedTable thead { background-color: #3a2b1c; color: #ffdca8; }
+body.theme-dark #modifiedTable .row-modified td { background-color: rgba(255,152,0,0.06); color: #fff0d6; }
+
+.cell-modified-value { background-color: rgba(255,215,64,0.12); }
+body.theme-dark .cell-modified-value { background-color: rgba(255,193,7,0.12); }
 #csvTable thead tr#filterRow th input.edited-filter {
   background-color: #fffe3e;   /* amarillo suave */
   border-color: #fff;
